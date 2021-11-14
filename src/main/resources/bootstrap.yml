@@ -119,11 +119,8 @@ owms:
   dead-letter:
     exchange-name: dle.tasks
     queue-name: tasks-dl-queue
-  events:
-    tasks:
-      exchange-name: tasks
   tasks:
-    exchange-name: movements
+    exchange-name: tasks
     serialization: json
 
 management:
