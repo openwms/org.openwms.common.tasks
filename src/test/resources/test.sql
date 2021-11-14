@@ -1,2 +1,2 @@
 -- Tasks
-delete from com_task;
+insert into com_task (c_pk, c_created, c_ol, c_pid, c_description, c_finished_at, c_started_at, c_state, c_task_id, c_type) VALUES (1000, now(), 0, '1000', 'Test Task', now(), now(), 'CREATED', 'T00001', 'MANUAL');

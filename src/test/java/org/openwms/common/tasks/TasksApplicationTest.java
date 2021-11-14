@@ -40,7 +40,7 @@ import java.lang.annotation.Target;
 @EnableSpringConfigured
 @SpringTestSupport
 @SqlGroup({
-        @Sql(scripts = "classpath:test.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
+        @Sql(scripts = "classpath:delete-data.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
 })
 @SpringBootTest(classes = {
         TasksRunner.class
