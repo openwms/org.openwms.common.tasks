@@ -19,6 +19,7 @@ import org.ameba.http.MeasuredRestController;
 import org.openwms.common.tasks.api.TaskVO;
 import org.openwms.common.tasks.impl.TaskService;
 import org.openwms.core.http.AbstractWebController;
+import org.openwms.core.http.Index;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -106,5 +107,21 @@ public class TaskController extends AbstractWebController {
     public ResponseEntity<TaskVO> finish(@PathVariable("pKey") String pKey) {
         var task = taskService.finish(pKey);
         return ResponseEntity.ok(task);
+    }
+
+    @GetMapping("/tasks/index")
+    public ResponseEntity<Index> index() {
+        return ResponseEntity.ok(
+                new Index(
+                        linkTo(methodOn(TaskController.class).findAll()).withRel("tasks-findall"),
+                        linkTo(methodOn(TaskController.class).findByPKey("identifier")).withRel("tasks-findbypkey"),
+                        linkTo(methodOn(TaskController.class).create(new TaskVO(), null)).withRel("tasks-create"),
+                        linkTo(methodOn(TaskController.class).start("identifier")).withRel("tasks-start"),
+                        linkTo(methodOn(TaskController.class).pause("identifier")).withRel("tasks-pause"),
+                        linkTo(methodOn(TaskController.class).resume("identifier")).withRel("tasks-resume"),
+                        linkTo(methodOn(TaskController.class).finish("identifier")).withRel("tasks-finish"),
+                        linkTo(methodOn(TaskController.class).update(new TaskVO())).withRel("tasks-update")
+                )
+        );
     }
 }
