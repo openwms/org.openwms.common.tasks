@@ -26,8 +26,6 @@ import org.openwms.common.tasks.api.TaskState;
 import org.openwms.common.tasks.api.TaskVO;
 import org.openwms.common.tasks.api.ValidationGroups;
 import org.openwms.common.tasks.events.TaskEvent;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -59,7 +57,6 @@ import static org.openwms.common.tasks.TaskMessageCodes.TASK_NOT_FOUND;
 @TxService
 class TaskServiceImpl implements TaskService {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(TaskServiceImpl.class);
     private final TimeProvider timeProvider = ServiceLoader.load(TimeProvider.class).iterator().next();
     private final ApplicationEventPublisher eventPublisher;
     private final Translator translator;

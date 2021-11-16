@@ -1,0 +1,6 @@
+[[resources-task]]
+== Task
+
+A `Task` is a human action that needs to be performed. A `Task` is persisted and has a particular lifecycle.
+
+=== Create a Task

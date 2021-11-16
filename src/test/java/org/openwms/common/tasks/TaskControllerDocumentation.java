@@ -20,6 +20,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.restdocs.RestDocumentationContextProvider;
 import org.springframework.test.context.jdbc.Sql;
+import org.springframework.test.context.jdbc.SqlGroup;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
@@ -61,7 +62,10 @@ class TaskControllerDocumentation {
     }
 
     @Test
-    @Sql(scripts = "classpath:test.sql")
+    @SqlGroup({
+            @Sql(scripts = "classpath:delete-data.sql"),
+            @Sql(scripts = "classpath:test.sql")
+    })
     void shall_findAll() throws Exception {
         mockMvc
                 .perform(
@@ -73,7 +77,10 @@ class TaskControllerDocumentation {
     }
 
     @Test
-    @Sql(scripts = "classpath:test.sql")
+    @SqlGroup({
+            @Sql(scripts = "classpath:delete-data.sql"),
+            @Sql(scripts = "classpath:test.sql")
+    })
     void shall_findOne() throws Exception {
         mockMvc
                 .perform(
@@ -81,6 +88,14 @@ class TaskControllerDocumentation {
                 )
                 .andExpect(status().isOk())
                 .andDo(document("tasks-findOne", preprocessResponse(prettyPrint())))
+        ;
+
+        mockMvc
+                .perform(
+                        get("/tasks/UNKNOWN")
+                )
+                .andExpect(status().isNotFound())
+                .andDo(document("tasks-findOne-404", preprocessResponse(prettyPrint())))
         ;
     }
 }

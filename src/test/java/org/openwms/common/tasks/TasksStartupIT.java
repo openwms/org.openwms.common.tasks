@@ -20,6 +20,8 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 /**
  * A TasksStartupIT.
  *
@@ -30,6 +32,6 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 class TasksStartupIT {
 
     @Test void contextLoads() {
-        // just to verify the app starts up
+        assertEquals(this.getClass(), (TasksStartupIT.class));
     }
 }

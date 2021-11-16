@@ -22,6 +22,7 @@ import org.ameba.http.AbstractBase;
 
 import java.io.Serializable;
 import java.time.ZonedDateTime;
+import java.util.Objects;
 
 import static org.openwms.common.tasks.TimeProvider.DATE_TIME_WITH_TIMEZONE;
 
@@ -110,5 +111,29 @@ public class TaskVO extends AbstractBase<TaskVO> implements Serializable {
 
     public void setFinishedAt(ZonedDateTime finishedAt) {
         this.finishedAt = finishedAt;
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * All Fields.
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof TaskVO)) return false;
+        if (!super.equals(o)) return false;
+        TaskVO taskVO = (TaskVO) o;
+        return Objects.equals(pKey, taskVO.pKey) && Objects.equals(taskId, taskVO.taskId) && Objects.equals(description, taskVO.description) && Objects.equals(type, taskVO.type) && state == taskVO.state && Objects.equals(startedAt, taskVO.startedAt) && Objects.equals(finishedAt, taskVO.finishedAt);
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * All Fields.
+     */
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), pKey, taskId, description, type, state, startedAt, finishedAt);
     }
 }

@@ -15,28 +15,33 @@
  */
 package org.openwms.common.tasks.impl;
 
-import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
-import org.openwms.common.tasks.api.TaskVO;
-import org.openwms.common.tasks.events.TaskMO;
+import org.ameba.integration.jpa.ApplicationEntity;
 
-import java.util.List;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
- * A TaskMapper.
+ * A TaskGroupEO.
  *
  * @author Heiko Scherrer
  */
-@Mapper
-public interface TaskMapper {
+@Entity
+@Table(name = "COM_TASK_GROUP")
+public class TaskGroupEO extends ApplicationEntity implements Serializable {
 
-    TaskMO convertToMO(TaskEO eo);
+    @NotNull
+    @Column(name = "C_NAME", nullable = false)
+    private String name;
 
-    TaskEO convertToEO(TaskVO vo);
+    @Column(name = "C_DESCRIPTION")
+    private String description;
 
-    @Mapping(target = "pKey", source = "persistentKey")
-    TaskVO convertToVO(TaskEO eo);
-
-    @Mapping(target = "pKey", source = "persistentKey")
-    List<TaskVO> convertToVO(List<TaskEO> tasks);
+    @OneToMany(mappedBy = "taskGroup")
+    private Set<TaskEO> tasks = new HashSet<>();
 }

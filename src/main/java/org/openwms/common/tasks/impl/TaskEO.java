@@ -23,6 +23,9 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.ForeignKey;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
@@ -56,6 +59,14 @@ public class TaskEO extends ApplicationEntity implements Serializable {
     @Enumerated(EnumType.STRING)
     @Column(name = "C_STATE")
     private TaskState state;
+
+    @ManyToOne
+    @JoinColumn(name = "C_PARENT_TASK", foreignKey = @ForeignKey(name = "FK_TSK_TSK_PARENT"))
+    private TaskEO parentTask;
+
+    @ManyToOne
+    @JoinColumn(name = "C_TASK_GROUP", foreignKey = @ForeignKey(name = "FK_TSK_GRP"))
+    private TaskGroupEO taskGroup;
 
     @Column(name = "C_STARTED_AT", columnDefinition = "timestamp(0)")
     @DateTimeFormat(pattern = DATE_TIME_WITH_TIMEZONE)
@@ -102,6 +113,22 @@ public class TaskEO extends ApplicationEntity implements Serializable {
         this.state = state;
     }
 
+    public TaskEO getParentTask() {
+        return parentTask;
+    }
+
+    public void setParentTask(TaskEO parentTask) {
+        this.parentTask = parentTask;
+    }
+
+    public TaskGroupEO getTaskGroup() {
+        return taskGroup;
+    }
+
+    public void setTaskGroup(TaskGroupEO taskGroup) {
+        this.taskGroup = taskGroup;
+    }
+
     public ZonedDateTime getStartedAt() {
         return startedAt;
     }
@@ -129,7 +156,7 @@ public class TaskEO extends ApplicationEntity implements Serializable {
         if (!(o instanceof TaskEO)) return false;
         if (!super.equals(o)) return false;
         TaskEO taskEO = (TaskEO) o;
-        return Objects.equals(taskId, taskEO.taskId) && Objects.equals(description, taskEO.description) && Objects.equals(type, taskEO.type) && state == taskEO.state && Objects.equals(startedAt, taskEO.startedAt) && Objects.equals(finishedAt, taskEO.finishedAt);
+        return Objects.equals(taskId, taskEO.taskId) && Objects.equals(description, taskEO.description) && Objects.equals(type, taskEO.type) && state == taskEO.state && Objects.equals(parentTask, taskEO.parentTask) && Objects.equals(taskGroup, taskEO.taskGroup) && Objects.equals(startedAt, taskEO.startedAt) && Objects.equals(finishedAt, taskEO.finishedAt);
     }
 
     /**
@@ -139,7 +166,7 @@ public class TaskEO extends ApplicationEntity implements Serializable {
      */
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), taskId, description, type, state, startedAt, finishedAt);
+        return Objects.hash(super.hashCode(), taskId, description, type, state, parentTask, taskGroup, startedAt, finishedAt);
     }
 
     /**
@@ -154,6 +181,8 @@ public class TaskEO extends ApplicationEntity implements Serializable {
                 .add("description='" + description + "'")
                 .add("type='" + type + "'")
                 .add("state=" + state)
+                .add("parentTask=" + parentTask)
+                .add("taskGroup=" + taskGroup)
                 .add("startedAt=" + startedAt)
                 .add("finishedAt=" + finishedAt)
                 .toString();
