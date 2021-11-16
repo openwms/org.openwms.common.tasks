@@ -14,7 +14,6 @@
  <ul>
   <li><a href='index.html' title='All tables and views in the schema'>Tables</a></li>
   <li><a href='relationships.html' title='Diagram of table relationships'>Relationships</a></li>
-  <li><a href='utilities.html' title='View of tables with neither parents nor children'>Utility&nbsp;Tables</a></li>
   <li id='current'><a href='constraints.html' title='Useful for diagnosing error messages that just give constraint name or number'>Constraints</a></li>
   <li><a href='anomalies.html' title="Things that might not be quite right">Anomalies</a></li>
   <li><a href='columns.byTable.html' title="All of the columns in the schema">Columns</a></li>
@@ -31,7 +30,7 @@
 <div class='indent'>
 <table width='100%'>
 <tr><td class='container' valign='bottom'><b>
-0 Foreign Key Constraints:</b>
+2 Foreign Key Constraints:</b>
 </td><td class='container' align='right'>
 <table>
 <tr><td class='container'>
@@ -52,8 +51,19 @@
 </tr>
 </thead>
 <tbody>
- <tr>
-  <td class='detail' valign='top' colspan='4'>None detected</td>
+  <tr class='even'>
+  <td class='detail'>fk_tsk_grp</td>
+  <td class='detail'><a href='tables/com_task.html'>com_task</a>.c_task_group</td>
+  <td class='detail'><a href='tables/com_task_group.html'>com_task_group</a>.c_pk</td>
+  <td class='detail'><span title='Restrict delete:
+ Parent cannot be deleted if children exist'>Restrict delete&nbsp;</span></td>
+ </tr>
+  <tr class='odd'>
+  <td class='detail'>fk_tsk_tsk_parent</td>
+  <td class='detail'><a href='tables/com_task.html'>com_task</a>.c_parent_task</td>
+  <td class='detail'><a href='tables/com_task.html'>com_task</a>.c_pk</td>
+  <td class='detail'><span title='Restrict delete:
+ Parent cannot be deleted if children exist'>Restrict delete&nbsp;</span></td>
  </tr>
 </tbody>
 </table>

@@ -19,4 +19,31 @@ digraph "compactRelationshipsDiagram" {
   edge [
     arrowsize="0.8"
   ];
+  "com_task" [
+    label=<
+    <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" BGCOLOR="#ffffff">
+      <TR><TD COLSPAN="3" BGCOLOR="#9bab96" ALIGN="CENTER">com_task</TD></TR>
+      <TR><TD PORT="c_pk" COLSPAN="3" BGCOLOR="#bed1b8" ALIGN="LEFT">c_pk</TD></TR>
+      <TR><TD PORT="c_task_id" COLSPAN="3" BGCOLOR="#f4f7da" ALIGN="LEFT">c_task_id</TD></TR>
+      <TR><TD PORT="c_parent_task" COLSPAN="3" ALIGN="LEFT">c_parent_task</TD></TR>
+      <TR><TD PORT="c_task_group" COLSPAN="3" ALIGN="LEFT">c_task_group</TD></TR>
+      <TR><TD PORT="elipses" COLSPAN="3" ALIGN="LEFT">...</TD></TR>
+      <TR><TD ALIGN="LEFT" BGCOLOR="#f7f7f7">&lt; 2</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">0 rows</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">1 &gt;</TD></TR>
+    </TABLE>>
+    URL="tables/com_task.html"
+    tooltip="com_task"
+  ];
+  "com_task_group" [
+    label=<
+    <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" BGCOLOR="#ffffff">
+      <TR><TD COLSPAN="3" BGCOLOR="#9bab96" ALIGN="CENTER">com_task_group</TD></TR>
+      <TR><TD PORT="c_pk" COLSPAN="3" BGCOLOR="#bed1b8" ALIGN="LEFT">c_pk</TD></TR>
+      <TR><TD PORT="elipses" COLSPAN="3" ALIGN="LEFT">...</TD></TR>
+      <TR><TD ALIGN="LEFT" BGCOLOR="#f7f7f7">  </TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">0 rows</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">1 &gt;</TD></TR>
+    </TABLE>>
+    URL="tables/com_task_group.html"
+    tooltip="com_task_group"
+  ];
+  "com_task":"c_parent_task":w -> "com_task":"c_pk":e [arrowhead=none dir=back arrowtail=crowodot];
+  "com_task":"c_task_group":w -> "com_task_group":"c_pk":e [arrowhead=none dir=back arrowtail=crowodot];
 }
