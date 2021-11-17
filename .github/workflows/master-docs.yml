@@ -63,7 +63,7 @@ jobs:
           -Dscmpublish.pubScmUrl=scm:git:https://openwms:$PUSHKEY@github.com/openwms/org.openwms.common.tasks.git
           -DdeveloperConnectionUrl=scm:git:https://openwms:$PUSHKEY@github.com/openwms/org.openwms.common.tasks.git
           -Dci.buildNumber=$GITHUB_RUN_NUMBER
-          -Pschemagen -B $MAVEN_OPTS
+          -Pschemagen,release -B $MAVEN_OPTS
         env:
           PUSHKEY: ${{ secrets.PUSHKEY }}
       - name: Sonar
