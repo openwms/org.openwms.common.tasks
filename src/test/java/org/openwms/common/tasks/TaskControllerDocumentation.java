@@ -298,7 +298,7 @@ class TaskControllerDocumentation {
                         get("/tasks/index")
                 )
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$._links.tasks-index.length()", is(8)))
+                .andExpect(jsonPath("$._links.length()", is(8)))
                 .andDo(document("tsks-index", preprocessResponse(prettyPrint())))
         ;
     }
