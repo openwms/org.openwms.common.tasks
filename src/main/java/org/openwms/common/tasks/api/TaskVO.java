@@ -20,7 +20,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.ameba.http.AbstractBase;
 
-import java.io.Serializable;
+import javax.validation.constraints.NotEmpty;
 import java.time.ZonedDateTime;
 import java.util.Objects;
 
@@ -32,8 +32,11 @@ import static org.openwms.common.tasks.TimeProvider.DATE_TIME_WITH_TIMEZONE;
  * @author Heiko Scherrer
  */
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
-public class TaskVO extends AbstractBase<TaskVO> implements Serializable {
+public class TaskVO extends AbstractBase<TaskVO> {
 
+    public static final String MEDIA_TYPE = "application/vnd.openwms.common.task-v1+json";
+
+    @NotEmpty(groups = {ValidationGroups.Update.class})
     @JsonProperty("pKey")
     private String pKey;
 
@@ -43,6 +46,7 @@ public class TaskVO extends AbstractBase<TaskVO> implements Serializable {
     @JsonProperty("description")
     private String description;
 
+    @NotEmpty(groups = {ValidationGroups.Create.class})
     @JsonProperty("type")
     private String type;
 

@@ -39,6 +39,7 @@ class EnsureArchitectureTest {
                     .onlyDependOnClassesThat()
                     .resideInAnyPackage("..api..",
                             "java..",
+                            "javax..",
                             "org.apache.commons..",
                             "org.ameba..",
                             "org.openwms..api..",

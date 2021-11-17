@@ -23,4 +23,5 @@ package org.openwms.common.tasks.api;
 public interface ValidationGroups {
 
     interface Create {}
+    interface Update {}
 }

@@ -1,6 +1,81 @@
 [[resources-task]]
 == Task
 
-A `Task` is a human action that needs to be performed. A `Task` is persisted and has a particular lifecycle.
+A `Task` is a human action that needs to be performed, it is persisted and has its own particular lifecycle.
 
+[[tasks-findbypkey]]
+=== Find a Task
+One particular `Task` can be looked up by its identifying persistent key, the `pKey`. If the client has the `pKey` on hand a `GET` request
+to the `Task` resource with the `pKey` looks up the single `Task` instance.
+include::{generated}/tasks-findOne/http-request.adoc[]
+
+If the `Task` exists it is returned.
+include::{generated}/tasks-findOne/http-response.adoc[]
+include::{generated}/tasks-findOne/response-fields.adoc[]
+
+If the `Task` does not exist, the server responds with:
+include::{generated}/tasks-findOne-404/http-response.adoc[]
+
+[[tasks-findall]]
+=== Find all existing Tasks
+To find all existing `Tasks` a client must send a HTTP `GET` request to the primary `Task` resource.
+include::{generated}/tasks-findAll/http-request.adoc[]
+
+An array of all `Tasks` is returned:
+include::{generated}/tasks-findAll/http-response.adoc[]
+If no `Tasks` exist the response remains empty:
+include::{generated}/tasks-findAll-empty/http-response.adoc[]
+
+[[tasks-create]]
 === Create a Task
+To start a new `Task` a client must send a HTTP `POST` request to the primary `Task` resource.
+include::{generated}/tasks-create/http-request.adoc[]
+include::{generated}/tasks-create/request-fields.adoc[]
+
+If the `Task` can be created successfully, the server responds like:
+include::{generated}/tasks-create/http-response.adoc[]
+include::{generated}/tasks-create/request-fields.adoc[]
+
+[[tasks-update]]
+=== Modify a Task
+Some fields of a `Task` resource can be modified after creation via the API. Therefore a client must send a HTTP `PUT` request with the
+complete `Task` representation in the request body.
+include::{generated}/tasks-update/http-request.adoc[]
+
+If the resource has been modified successfully the service responds:
+include::{generated}/tasks-update/http-response.adoc[]
+
+[[tasks-start]]
+=== Start a Task
+After a `Task` has been created it is typically started and executed at some point. To start a `Task` a client sends a HTTP `POST` request
+and adds the action as part of the URI:
+include::{generated}/tasks-start/http-request.adoc[]
+
+If the `Task` has been started successfully the service responds:
+include::{generated}/tasks-start/http-response.adoc[]
+
+If the `Task` cannot be started, the server responds with an error and one of the <<api-errors,defined exceptions>>.
+
+[[tasks-pause]]
+=== Pause a Task
+A started `Task` can also be changed to paused, to stop the execution.
+include::{generated}/tasks-pause/http-request.adoc[]
+
+If the `Task` has been paused successfully the service responds:
+include::{generated}/tasks-pause/http-response.adoc[]
+
+[[tasks-resume]]
+=== Resume a Task
+Similar to start a `Task` a paused on can resumed again, to continue the execution.
+include::{generated}/tasks-resume/http-request.adoc[]
+
+If the `Task` has been resumed successfully the service responds:
+include::{generated}/tasks-resume/http-response.adoc[]
+
+[[tasks-finish]]
+=== Finish a Task
+Finally a running `Task` can be finished
+include::{generated}/tasks-finish/http-request.adoc[]
+
+If the `Task` has been finished successfully the service responds:
+include::{generated}/tasks-finish/http-response.adoc[]

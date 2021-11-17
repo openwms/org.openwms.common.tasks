@@ -35,6 +35,8 @@ public interface TaskService {
 
     TaskVO create(@NotNull @Valid TaskVO task);
 
+    TaskVO update(@NotNull TaskVO task);
+
     TaskVO start(@NotEmpty String pKey);
 
     TaskVO pause(@NotEmpty String pKey);
@@ -42,4 +44,5 @@ public interface TaskService {
     TaskVO resume(@NotEmpty String pKey);
 
     TaskVO finish(@NotEmpty String pKey);
+
 }

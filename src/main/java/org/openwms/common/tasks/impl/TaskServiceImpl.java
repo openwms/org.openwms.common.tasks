@@ -123,6 +123,17 @@ class TaskServiceImpl implements TaskService {
      */
     @Override
     @Measured
+    public TaskVO update(@NotNull TaskVO task) {
+        var existing = findInternal(task.getpKey());
+        existing.setDescription(task.getDescription());
+        return mapper.convertToVO(existing);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    @Measured
     public TaskVO start(@NotEmpty String pKey) {
         var existing = findInternal(pKey);
         if (existing.getState() == TaskState.FINISHED) {

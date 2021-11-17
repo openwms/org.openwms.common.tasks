@@ -71,6 +71,7 @@
 		<core.units.version>0.4.0-SNAPSHOT</core.units.version>
 		<guava.version>30.0-jre</guava.version>
 		<HdrHistogram.version>2.1.12</HdrHistogram.version>
+        <javadoc.opts>-Xdoclint:none</javadoc.opts>
 		<joda-time.version>2.10.8</joda-time.version>
 		<org.mapstruct.version>1.4.2.Final</org.mapstruct.version>
 		<querydsl.version>5.0.0</querydsl.version>
@@ -626,6 +627,10 @@
             <snapshots>
                 <enabled>false</enabled>
             </snapshots>
+        </repository>
+        <repository>
+            <id>jitpack.io</id>
+            <url>https://jitpack.io</url>
         </repository>
     </repositories>
     <pluginRepositories>

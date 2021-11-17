@@ -31,6 +31,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
+import static org.openwms.common.tasks.api.TaskVO.MEDIA_TYPE;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
@@ -49,7 +50,7 @@ public class TaskController extends AbstractWebController {
         this.taskService = taskService;
     }
 
-    @GetMapping(value = "/tasks", produces = "application/vnd.openwms.common.task-v1+json")
+    @GetMapping(value = "/tasks", produces = MEDIA_TYPE)
     public ResponseEntity<List<TaskVO>> findAll() {
         var result = taskService.findAll();
         if (result.isEmpty()) {
@@ -59,15 +60,14 @@ public class TaskController extends AbstractWebController {
         return ResponseEntity.ok(result);
     }
 
-    @GetMapping(value = "/tasks/{pKey}", produces = "application/vnd.openwms.common.task-v1+json")
+    @GetMapping(value = "/tasks/{pKey}", produces = MEDIA_TYPE)
     public ResponseEntity<TaskVO> findByPKey(@PathVariable("pKey") String pKey) {
         var result = taskService.findByPKeyOrThrow(pKey);
         addLinks(result);
         return ResponseEntity.ok(result);
     }
 
-    @PostMapping(value = "/tasks", consumes = "application/vnd.openwms.common.task-v1+json",
-            produces = "application/vnd.openwms.common.task-v1+json")
+    @PostMapping(value = "/tasks", consumes = MEDIA_TYPE, produces = MEDIA_TYPE)
     public ResponseEntity<TaskVO> create(@RequestBody TaskVO task, HttpServletRequest req) {
         var result = taskService.create(task);
         addLinks(result);
@@ -78,34 +78,38 @@ public class TaskController extends AbstractWebController {
         vo.add(linkTo(methodOn(TaskController.class).findByPKey(vo.getpKey())).withSelfRel());
     }
 
-    @PutMapping(value = "/tasks", consumes = "application/vnd.openwms.common.task-v1+json",
-            produces = "application/vnd.openwms.common.task-v1+json")
+    @PutMapping(value = "/tasks", consumes = MEDIA_TYPE, produces = MEDIA_TYPE)
     public ResponseEntity<TaskVO> update(@RequestBody TaskVO task) {
-
-        return ResponseEntity.ok(new TaskVO());
+        var updated = taskService.update(task);
+        addLinks(updated);
+        return ResponseEntity.ok(updated);
     }
 
-    @PostMapping(value = "/tasks/{pKey}/start", produces = "application/vnd.openwms.common.task-v1+json")
+    @PostMapping(value = "/tasks/{pKey}/start", produces = MEDIA_TYPE)
     public ResponseEntity<TaskVO> start(@PathVariable("pKey") String pKey) {
         var task = taskService.start(pKey);
+        addLinks(task);
         return ResponseEntity.ok(task);
     }
 
-    @PostMapping(value = "/tasks/{pKey}/pause", produces = "application/vnd.openwms.common.task-v1+json")
+    @PostMapping(value = "/tasks/{pKey}/pause", produces = MEDIA_TYPE)
     public ResponseEntity<TaskVO> pause(@PathVariable("pKey") String pKey) {
         var task = taskService.pause(pKey);
+        addLinks(task);
         return ResponseEntity.ok(task);
     }
 
-    @PostMapping(value = "/tasks/{pKey}/resume", produces = "application/vnd.openwms.common.task-v1+json")
+    @PostMapping(value = "/tasks/{pKey}/resume", produces = MEDIA_TYPE)
     public ResponseEntity<TaskVO> resume(@PathVariable("pKey") String pKey) {
         var task = taskService.resume(pKey);
+        addLinks(task);
         return ResponseEntity.ok(task);
     }
 
-    @PostMapping(value = "/tasks/{pKey}/finish", produces = "application/vnd.openwms.common.task-v1+json")
+    @PostMapping(value = "/tasks/{pKey}/finish", produces = MEDIA_TYPE)
     public ResponseEntity<TaskVO> finish(@PathVariable("pKey") String pKey) {
         var task = taskService.finish(pKey);
+        addLinks(task);
         return ResponseEntity.ok(task);
     }
 

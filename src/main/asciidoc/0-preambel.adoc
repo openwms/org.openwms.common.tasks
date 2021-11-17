@@ -49,6 +49,7 @@ The JSON structure contains the following fields.
 | path          | The part of the URI for the REST resource that was queried
 |===
 
+[[api-errors]]
 === API Declined Errors
 Those errors are thrown within the REST API validation and processing logic. For example, if a client request does not match the expected
 format or has produced an error on server side, the API will decline the request and return a response with status client-side error (4xx).
@@ -77,15 +78,19 @@ The JSON structure contains the following fields.
 | class         | The arguments type
 |===
 
+
 Following message keys are currently used:
 
 
 |===
 | Message Key | Description | Action
 
-| not.found                             | The requested resource has not been found      | The resource does not exist anymore or has never existed. The resource identifier must be verified
-| owms.common.common.tu.notFoundByBK    | The TransportUnit does not exist               | Verify the identifying attribute passed to the API
-| owms.common.common.loc.notFoundByName | The requested Location does not exist          | Verify the identifying attribute passed to the API
-| owms.common.common.lg.notFoundByName  | The requested LocationGroup does not exist     | Verify the identifying attribute passed to the API
-| owms.common.common.tut.notFoundByName | The requested TransportUnitType does not exist | Verify the identifying attribute passed to the API
+| owms.common.tasks.alreadyExists   | The task exists unexpectedly       | No further action possiblee
+| owms.common.tasks.notFoundByPKey  | The task doesn't exist             | No further action possible
+| owms.common.tasks.alreadyStarted  | The task is already started        | No further action needed
+| owms.common.tasks.alreadyPaused   | The task is already paused         | No further action needed
+| owms.common.tasks.isPaused        | The task is unexpected paused      | Start the task again
+| owms.common.tasks.isNotPaused     | The task is not paused             | Pause the task first
+| owms.common.tasks.notActive       | The task is not active             | Start the task first
+| owms.common.tasks.alreadyFinished | The task has already being finished | No further action possible
 |===
