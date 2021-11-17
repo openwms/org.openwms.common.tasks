@@ -547,7 +547,7 @@ order to re-phrase and send the request again.</p>
 </table>
 </div>
 <div class="sect2">
-<h3 id="_api_declined_errors">API Declined Errors</h3>
+<h3 id="api-errors">API Declined Errors</h3>
 <div class="paragraph">
 <p>Those errors are thrown within the REST API validation and processing logic. For example, if a client request does not match the expected
 format or has produced an error on server side, the API will decline the request and return a response with status client-side error (4xx).</p>
@@ -621,29 +621,44 @@ format or has produced an error on server side, the API will decline the request
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">not.found</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The requested resource has not been found</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The resource does not exist anymore or has never existed. The resource identifier must be verified</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">owms.common.tasks.alreadyExists</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The task exists unexpectedly</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">No further action possiblee</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">owms.common.common.tu.notFoundByBK</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The TransportUnit does not exist</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Verify the identifying attribute passed to the API</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">owms.common.tasks.notFoundByPKey</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The task doesn&#8217;t exist</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">No further action possible</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">owms.common.common.loc.notFoundByName</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The requested Location does not exist</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Verify the identifying attribute passed to the API</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">owms.common.tasks.alreadyStarted</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The task is already started</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">No further action needed</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">owms.common.common.lg.notFoundByName</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The requested LocationGroup does not exist</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Verify the identifying attribute passed to the API</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">owms.common.tasks.alreadyPaused</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The task is already paused</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">No further action needed</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">owms.common.common.tut.notFoundByName</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The requested TransportUnitType does not exist</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Verify the identifying attribute passed to the API</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">owms.common.tasks.isPaused</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The task is unexpected paused</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Start the task again</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">owms.common.tasks.isNotPaused</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The task is not paused</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Pause the task first</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">owms.common.tasks.notActive</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The task is not active</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Start the task first</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">owms.common.tasks.alreadyFinished</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The task has already being finished</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">No further action possible</p></td>
 </tr>
 </tbody>
 </table>
@@ -654,7 +669,7 @@ format or has produced an error on server side, the API will decline the request
 <div id="footer">
 <div id="footer-text">
 Version <br>
-Last updated 2021-11-16 19:36:15 UTC
+Last updated 2021-11-17 17:00:52 UTC
 </div>
 </div>
 </body>
