@@ -20,6 +20,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import org.ameba.http.AbstractBase;
 
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 /**
@@ -62,5 +63,25 @@ public class TaskGroupVO extends AbstractBase<TaskGroupVO> {
 
     public void setTasks(Set<TaskVO> tasks) {
         this.tasks = tasks;
+    }
+
+    /**
+     * All fields.
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof TaskGroupVO)) return false;
+        if (!super.equals(o)) return false;
+        TaskGroupVO that = (TaskGroupVO) o;
+        return Objects.equals(name, that.name) && Objects.equals(description, that.description) && Objects.equals(tasks, that.tasks);
+    }
+
+    /**
+     * All fields.
+     */
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), name, description, tasks);
     }
 }
