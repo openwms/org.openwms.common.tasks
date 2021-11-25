@@ -299,7 +299,7 @@ class TaskControllerDocumentation {
                 )
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$._links.length()", is(8)))
-                .andDo(document("tsks-index", preprocessResponse(prettyPrint())))
+                .andDo(document("tasks-index", preprocessResponse(prettyPrint())))
         ;
     }
 }
