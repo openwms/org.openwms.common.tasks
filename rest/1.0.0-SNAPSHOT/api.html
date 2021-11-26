@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.10">
-<meta name="author" content="(1.0.0-SNAPSHOT-11)">
+<meta name="author" content="(1.0.0-SNAPSHOT-17)">
 <title>OpenWMS.org COMMON: RESTful API (Common Service)</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
@@ -442,7 +442,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="header">
 <h1>OpenWMS.org COMMON: RESTful API (Common Service)</h1>
 <div class="details">
-<span id="author" class="author">(1.0.0-SNAPSHOT-11)</span><br>
+<span id="author" class="author">(1.0.0-SNAPSHOT-17)</span><br>
 <span id="revdate">Heiko Scherrer;</span>
 </div>
 <div id="toc" class="toc">
@@ -807,8 +807,8 @@ Content-Length: 296
   "description" : "Test Task",
   "type" : "MANUAL",
   "state" : "CREATED",
-  "startedAt" : "2021-11-18T10:08:29Z",
-  "finishedAt" : "2021-11-18T10:08:29Z"
+  "startedAt" : "2021-11-26T22:35:32Z",
+  "finishedAt" : "2021-11-26T22:35:32Z"
 }</code></pre>
 </div>
 </div>
@@ -917,8 +917,8 @@ Content-Length: 1036
   "description" : "Test Task",
   "type" : "MANUAL",
   "state" : "CREATED",
-  "startedAt" : "2021-11-18T10:08:29Z",
-  "finishedAt" : "2021-11-18T10:08:29Z"
+  "startedAt" : "2021-11-26T22:35:31Z",
+  "finishedAt" : "2021-11-26T22:35:31Z"
 }, {
   "links" : [ {
     "rel" : "self",
@@ -939,7 +939,7 @@ Content-Length: 1036
   "description" : "Started Task",
   "type" : "MANUAL",
   "state" : "ACTIVE",
-  "startedAt" : "2021-11-18T10:08:29Z"
+  "startedAt" : "2021-11-26T22:35:31Z"
 }, {
   "links" : [ {
     "rel" : "self",
@@ -950,7 +950,7 @@ Content-Length: 1036
   "description" : "Paused Task",
   "type" : "MANUAL",
   "state" : "PAUSED",
-  "startedAt" : "2021-11-18T10:08:29Z"
+  "startedAt" : "2021-11-26T22:35:31Z"
 } ]</code></pre>
 </div>
 </div>
@@ -1014,16 +1014,16 @@ Host: localhost:8080
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code data-lang="http" class="language-http hljs">HTTP/1.1 201 Created
-Location: http://localhost:8080/tasks/cb776e43-19ee-4618-9685-bb7eaa6cd297/
+Location: http://localhost:8080/tasks/d8021cf1-f901-4c6a-af66-893b513da1d7/
 Content-Type: application/vnd.openwms.common.task-v1+json
 Content-Length: 284
 
 {
   "links" : [ {
     "rel" : "self",
-    "href" : "http://localhost:8080/tasks/cb776e43-19ee-4618-9685-bb7eaa6cd297"
+    "href" : "http://localhost:8080/tasks/d8021cf1-f901-4c6a-af66-893b513da1d7"
   } ],
-  "pKey" : "cb776e43-19ee-4618-9685-bb7eaa6cd297",
+  "pKey" : "d8021cf1-f901-4c6a-af66-893b513da1d7",
   "taskId" : "T0000000001",
   "description" : "Get a coffee",
   "type" : "USERTASK",
@@ -1097,8 +1097,8 @@ Content-Length: 297
   "description" : "Take a nap",
   "type" : "MANUAL",
   "state" : "CREATED",
-  "startedAt" : "2021-11-18T10:08:30Z",
-  "finishedAt" : "2021-11-18T10:08:30Z"
+  "startedAt" : "2021-11-26T22:35:32Z",
+  "finishedAt" : "2021-11-26T22:35:32Z"
 }</code></pre>
 </div>
 </div>
@@ -1134,7 +1134,7 @@ Content-Length: 256
   "description" : "Simple Task",
   "type" : "MANUAL",
   "state" : "ACTIVE",
-  "startedAt" : "2021-11-18T10:08:29Z"
+  "startedAt" : "2021-11-26T22:35:31Z"
 }</code></pre>
 </div>
 </div>
@@ -1172,7 +1172,7 @@ Content-Length: 257
   "description" : "Started Task",
   "type" : "MANUAL",
   "state" : "PAUSED",
-  "startedAt" : "2021-11-18T10:08:30Z"
+  "startedAt" : "2021-11-26T22:35:32Z"
 }</code></pre>
 </div>
 </div>
@@ -1207,7 +1207,7 @@ Content-Length: 256
   "description" : "Paused Task",
   "type" : "MANUAL",
   "state" : "ACTIVE",
-  "startedAt" : "2021-11-18T10:08:30Z"
+  "startedAt" : "2021-11-26T22:35:32Z"
 }</code></pre>
 </div>
 </div>
@@ -1242,8 +1242,8 @@ Content-Length: 300
   "description" : "Started Task",
   "type" : "MANUAL",
   "state" : "FINISHED",
-  "startedAt" : "2021-11-18T10:08:30Z",
-  "finishedAt" : "2021-11-18T10:08:29Z"
+  "startedAt" : "2021-11-26T22:35:32Z",
+  "finishedAt" : "2021-11-26T22:35:31Z"
 }</code></pre>
 </div>
 </div>
@@ -1253,7 +1253,7 @@ Content-Length: 300
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-11-18 10:02:25 UTC
+Last updated 2021-11-26 22:30:07 UTC
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/styles/github.min.css">
