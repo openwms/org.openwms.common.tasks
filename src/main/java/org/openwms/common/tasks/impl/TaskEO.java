@@ -24,6 +24,8 @@ import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.ForeignKey;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
@@ -42,7 +44,8 @@ import static org.openwms.common.tasks.TimeProvider.DATE_TIME_WITH_TIMEZONE;
  * @author Heiko Scherrer
  */
 @Entity
-@Table(name = "COM_TASK", uniqueConstraints = @UniqueConstraint(name = "UC_TASK_ID", columnNames = "C_TASK_ID"))
+@Inheritance(strategy = InheritanceType.JOINED)
+@Table(name = "TSK_TASK", uniqueConstraints = @UniqueConstraint(name = "UC_TASK_ID", columnNames = "C_TASK_ID"))
 public class TaskEO extends ApplicationEntity implements Serializable {
 
     @NotNull
@@ -67,6 +70,13 @@ public class TaskEO extends ApplicationEntity implements Serializable {
     @ManyToOne
     @JoinColumn(name = "C_TASK_GROUP", foreignKey = @ForeignKey(name = "FK_TSK_GRP"))
     private TaskGroupEO taskGroup;
+
+    @Column(name = "C_ASSIGNED_TO")
+    private String assignedTo;
+
+    @Column(name = "C_ASSIGNED_AT", columnDefinition = "timestamp(0)")
+    @DateTimeFormat(pattern = DATE_TIME_WITH_TIMEZONE)
+    private ZonedDateTime assignedAt;
 
     @Column(name = "C_STARTED_AT", columnDefinition = "timestamp(0)")
     @DateTimeFormat(pattern = DATE_TIME_WITH_TIMEZONE)
@@ -127,6 +137,22 @@ public class TaskEO extends ApplicationEntity implements Serializable {
 
     public void setTaskGroup(TaskGroupEO taskGroup) {
         this.taskGroup = taskGroup;
+    }
+
+    public String getAssignedTo() {
+        return assignedTo;
+    }
+
+    public void setAssignedTo(String assignedTo) {
+        this.assignedTo = assignedTo;
+    }
+
+    public ZonedDateTime getAssignedAt() {
+        return assignedAt;
+    }
+
+    public void setAssignedAt(ZonedDateTime assignedAt) {
+        this.assignedAt = assignedAt;
     }
 
     public ZonedDateTime getStartedAt() {

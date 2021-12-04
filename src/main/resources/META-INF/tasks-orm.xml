@@ -5,9 +5,9 @@
                  version="2.2">
 
     <entity class="org.openwms.common.tasks.impl.TaskEO" name="TaskEO" access="FIELD">
-        <sequence-generator name="generator" sequence-name="com_task_seq" allocation-size="1" />
+        <sequence-generator name="generator" sequence-name="tsk_task_seq" allocation-size="1" />
     </entity>
     <entity class="org.openwms.common.tasks.impl.TaskGroupEO" name="TaskGroupEO" access="FIELD">
-        <sequence-generator name="generator" sequence-name="com_task_grp_seq" allocation-size="1" />
+        <sequence-generator name="generator" sequence-name="tsk_task_grp_seq" allocation-size="1" />
     </entity>
 </entity-mappings>

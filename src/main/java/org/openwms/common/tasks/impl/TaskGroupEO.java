@@ -32,7 +32,7 @@ import java.util.Set;
  * @author Heiko Scherrer
  */
 @Entity
-@Table(name = "COM_TASK_GROUP")
+@Table(name = "TSK_TASK_GROUP")
 public class TaskGroupEO extends ApplicationEntity implements Serializable {
 
     @NotNull
