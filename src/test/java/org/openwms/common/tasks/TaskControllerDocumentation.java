@@ -105,6 +105,7 @@ class TaskControllerDocumentation {
                                 fieldWithPath("links[]").description("Hypermedia links to the resource itself and others"),
                                 fieldWithPath("links[].*").ignored(),
                                 fieldWithPath("pKey").description("The persistent unique key"),
+                                fieldWithPath("ol").ignored(),
                                 fieldWithPath("taskId").description("The unique business key"),
                                 fieldWithPath("description").description("The descriptive text of the task"),
                                 fieldWithPath("type").description("The task's type must be supported by the processing engine"),
@@ -139,7 +140,6 @@ class TaskControllerDocumentation {
                 .andDo(document("tasks-create",
                         preprocessResponse(prettyPrint()),
                         requestFields(
-                                fieldWithPath("links[]").ignored(),
                                 fieldWithPath("type").description("The type of task is a mandatory fields at creation"),
                                 fieldWithPath("description").description("(Optional) descriptive text")
                         ),
@@ -147,6 +147,7 @@ class TaskControllerDocumentation {
                                 fieldWithPath("links[]").description("Hypermedia links to the resource itself and others"),
                                 fieldWithPath("links[].*").ignored(),
                                 fieldWithPath("pKey").description("The persistent unique key"),
+                                fieldWithPath("ol").ignored(),
                                 fieldWithPath("taskId").description("The unique business key"),
                                 fieldWithPath("description").description("The descriptive text of the task"),
                                 fieldWithPath("type").description("The task's type must be supported by the processing engine"),
@@ -181,7 +182,6 @@ class TaskControllerDocumentation {
                 .andDo(document("tasks-update",
                         preprocessResponse(prettyPrint()),
                         requestFields(
-                                fieldWithPath("links[]").ignored(),
                                 fieldWithPath("pKey").description("Mandatory to provide the pKey"),
                                 fieldWithPath("description").description("In this example the description is updated")
                         )

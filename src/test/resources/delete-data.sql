@@ -1,1 +1,1 @@
-delete from com_task;
+delete from tsk_task;

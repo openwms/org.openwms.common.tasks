@@ -1,5 +1,5 @@
 -- Tasks
-insert into com_task (c_pk, c_created, c_ol, c_pid, c_description, c_finished_at, c_started_at, c_state, c_task_id, c_type) VALUES (1000, now(), 0, '1000', 'Test Task', now(), now(), 'CREATED', 'T0000000001', 'MANUAL');
-insert into com_task (c_pk, c_created, c_ol, c_pid, c_description, c_state, c_task_id, c_type) VALUES (1001, now(), 0, '1001', 'Simple Task', 'CREATED', 'T0000000002', 'MANUAL');
-insert into com_task (c_pk, c_created, c_ol, c_pid, c_description, c_started_at, c_state, c_task_id, c_type) VALUES (1002, now(), 0, '1002', 'Started Task', now(),'ACTIVE', 'T0000000003', 'MANUAL');
-insert into com_task (c_pk, c_created, c_ol, c_pid, c_description, c_started_at, c_state, c_task_id, c_type) VALUES (1003, now(), 0, '1003', 'Paused Task', now(),'PAUSED', 'T0000000004', 'MANUAL');
+insert into tsk_task (c_pk, c_created, c_ol, c_pid, c_description, c_finished_at, c_started_at, c_state, c_task_id, c_type) VALUES (1000, now(), 0, '1000', 'Test Task', now(), now(), 'CREATED', 'T0000000001', 'MANUAL');
+insert into tsk_task (c_pk, c_created, c_ol, c_pid, c_description, c_state, c_task_id, c_type) VALUES (1001, now(), 0, '1001', 'Simple Task', 'CREATED', 'T0000000002', 'MANUAL');
+insert into tsk_task (c_pk, c_created, c_ol, c_pid, c_description, c_started_at, c_state, c_task_id, c_type) VALUES (1002, now(), 0, '1002', 'Started Task', now(),'ACTIVE', 'T0000000003', 'MANUAL');
+insert into tsk_task (c_pk, c_created, c_ol, c_pid, c_description, c_started_at, c_state, c_task_id, c_type) VALUES (1003, now(), 0, '1003', 'Paused Task', now(),'PAUSED', 'T0000000004', 'MANUAL');
