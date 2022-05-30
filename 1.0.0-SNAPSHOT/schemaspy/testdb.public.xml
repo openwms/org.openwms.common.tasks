@@ -1,49 +1,61 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <database name="testdb" schema="public" type="PostgreSQL - 12.3">
    <tables>
-      <table name="com_task" numRows="0" remarks="" schema="public" type="TABLE">
+      <table name="tsk_task" numRows="0" remarks="" schema="public" type="TABLE">
          <column autoUpdated="false" digits="0" id="0" name="c_pk" nullable="false" remarks="" size="19" type="int8">
-            <child column="c_parent_task" foreignKey="fk_tsk_tsk_parent" implied="false" onDeleteCascade="false" table="com_task"/>
-            <parent column="c_pk" foreignKey="Implied Constraint" implied="true" onDeleteCascade="false" table="com_task_group"/>
+            <child column="c_parent_task" foreignKey="fk_tsk_tsk_parent" implied="false" onDeleteCascade="false" table="tsk_task"/>
+            <child column="c_pk" foreignKey="Implied Constraint" implied="true" onDeleteCascade="false" table="tsk_task_group"/>
          </column>
          <column autoUpdated="false" digits="6" id="1" name="c_created" nullable="true" remarks="" size="29" type="timestamp"/>
-         <column autoUpdated="false" digits="6" id="2" name="c_updated" nullable="true" remarks="" size="29" type="timestamp"/>
-         <column autoUpdated="false" digits="0" id="3" name="c_ol" nullable="true" remarks="" size="19" type="int8"/>
-         <column autoUpdated="false" digits="0" id="4" name="c_pid" nullable="false" remarks="" size="255" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="5" name="c_description" nullable="true" remarks="" size="255" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="6" name="c_finished_at" nullable="true" remarks="" size="22" type="timestamp"/>
-         <column autoUpdated="false" digits="0" id="7" name="c_started_at" nullable="true" remarks="" size="22" type="timestamp"/>
-         <column autoUpdated="false" digits="0" id="8" name="c_state" nullable="true" remarks="" size="255" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="9" name="c_task_id" nullable="false" remarks="" size="255" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="10" name="c_type" nullable="false" remarks="" size="255" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="11" name="c_parent_task" nullable="true" remarks="" size="19" type="int8">
-            <parent column="c_pk" foreignKey="fk_tsk_tsk_parent" implied="false" onDeleteCascade="false" table="com_task"/>
+         <column autoUpdated="false" digits="0" id="2" name="c_created_by" nullable="true" remarks="" size="255" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="3" name="c_updated_by" nullable="true" remarks="" size="255" type="varchar"/>
+         <column autoUpdated="false" digits="6" id="4" name="c_updated" nullable="true" remarks="" size="29" type="timestamp"/>
+         <column autoUpdated="false" digits="0" id="5" name="c_ol" nullable="true" remarks="" size="19" type="int8"/>
+         <column autoUpdated="false" digits="0" id="6" name="c_pid" nullable="false" remarks="" size="255" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="7" name="c_assigned_at" nullable="true" remarks="" size="22" type="timestamp"/>
+         <column autoUpdated="false" digits="0" id="8" name="c_assigned_to" nullable="true" remarks="" size="255" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="9" name="c_description" nullable="true" remarks="" size="255" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="10" name="c_finished_at" nullable="true" remarks="" size="22" type="timestamp"/>
+         <column autoUpdated="false" digits="0" id="11" name="c_started_at" nullable="true" remarks="" size="22" type="timestamp"/>
+         <column autoUpdated="false" digits="0" id="12" name="c_state" nullable="true" remarks="" size="255" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="13" name="c_task_id" nullable="false" remarks="" size="255" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="14" name="c_type" nullable="false" remarks="" size="255" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="15" name="c_parent_task" nullable="true" remarks="" size="19" type="int8">
+            <parent column="c_pk" foreignKey="fk_tsk_tsk_parent" implied="false" onDeleteCascade="false" table="tsk_task"/>
          </column>
-         <column autoUpdated="false" digits="0" id="12" name="c_task_group" nullable="true" remarks="" size="19" type="int8">
-            <parent column="c_pk" foreignKey="fk_tsk_grp" implied="false" onDeleteCascade="false" table="com_task_group"/>
+         <column autoUpdated="false" digits="0" id="16" name="c_task_group" nullable="true" remarks="" size="19" type="int8">
+            <parent column="c_pk" foreignKey="fk_tsk_grp" implied="false" onDeleteCascade="false" table="tsk_task_group"/>
          </column>
          <primaryKey column="c_pk" sequenceNumberInPK="1"/>
-         <index name="com_task_pkey" unique="true">
+         <index name="tsk_task_pkey" unique="true">
             <column ascending="true" name="c_pk"/>
          </index>
          <index name="uc_task_id" unique="true">
             <column ascending="true" name="c_task_id"/>
          </index>
+         <index name="uk_phu51i1beflvas188snv2wyt9" unique="true">
+            <column ascending="true" name="c_pid"/>
+         </index>
       </table>
-      <table name="com_task_group" numRows="0" remarks="" schema="public" type="TABLE">
+      <table name="tsk_task_group" numRows="0" remarks="" schema="public" type="TABLE">
          <column autoUpdated="false" digits="0" id="0" name="c_pk" nullable="false" remarks="" size="19" type="int8">
-            <child column="c_pk" foreignKey="Implied Constraint" implied="true" onDeleteCascade="false" table="com_task"/>
-            <child column="c_task_group" foreignKey="fk_tsk_grp" implied="false" onDeleteCascade="false" table="com_task"/>
+            <child column="c_task_group" foreignKey="fk_tsk_grp" implied="false" onDeleteCascade="false" table="tsk_task"/>
+            <parent column="c_pk" foreignKey="Implied Constraint" implied="true" onDeleteCascade="false" table="tsk_task"/>
          </column>
          <column autoUpdated="false" digits="6" id="1" name="c_created" nullable="true" remarks="" size="29" type="timestamp"/>
-         <column autoUpdated="false" digits="6" id="2" name="c_updated" nullable="true" remarks="" size="29" type="timestamp"/>
-         <column autoUpdated="false" digits="0" id="3" name="c_ol" nullable="true" remarks="" size="19" type="int8"/>
-         <column autoUpdated="false" digits="0" id="4" name="c_pid" nullable="false" remarks="" size="255" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="5" name="c_description" nullable="true" remarks="" size="255" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="6" name="c_name" nullable="false" remarks="" size="255" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="2" name="c_created_by" nullable="true" remarks="" size="255" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="3" name="c_updated_by" nullable="true" remarks="" size="255" type="varchar"/>
+         <column autoUpdated="false" digits="6" id="4" name="c_updated" nullable="true" remarks="" size="29" type="timestamp"/>
+         <column autoUpdated="false" digits="0" id="5" name="c_ol" nullable="true" remarks="" size="19" type="int8"/>
+         <column autoUpdated="false" digits="0" id="6" name="c_pid" nullable="false" remarks="" size="255" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="7" name="c_description" nullable="true" remarks="" size="255" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="8" name="c_name" nullable="false" remarks="" size="255" type="varchar"/>
          <primaryKey column="c_pk" sequenceNumberInPK="1"/>
-         <index name="com_task_group_pkey" unique="true">
+         <index name="tsk_task_group_pkey" unique="true">
             <column ascending="true" name="c_pk"/>
+         </index>
+         <index name="uk_naxr9qvsal34k3k8op2pysw3u" unique="true">
+            <column ascending="true" name="c_pid"/>
          </index>
       </table>
    </tables>

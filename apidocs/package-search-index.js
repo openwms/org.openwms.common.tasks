@@ -1,1 +1,1 @@
-packageSearchIndex = [{"l":"All Packages","url":"allpackages-index.html"},{"l":"org.openwms.common.tasks"},{"l":"org.openwms.common.tasks.api"},{"l":"org.openwms.common.tasks.app"},{"l":"org.openwms.common.tasks.events"},{"l":"org.openwms.common.tasks.impl"}]
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"org.openwms.common.tasks"},{"l":"org.openwms.common.tasks.api"},{"l":"org.openwms.common.tasks.app"},{"l":"org.openwms.common.tasks.events"},{"l":"org.openwms.common.tasks.impl"}];updateSearchResults();

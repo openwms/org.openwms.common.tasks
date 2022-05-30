@@ -1,2 +1,2 @@
-com_task
-com_task_group
+tsk_task
+tsk_task_group
