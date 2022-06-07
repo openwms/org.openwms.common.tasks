@@ -6,7 +6,7 @@
     <parent>
         <groupId>org.openwms</groupId>
         <artifactId>org.openwms.parent</artifactId>
-        <version>20</version>
+        <version>21</version>
         <relativePath />
     </parent>
     <artifactId>org.openwms.common.tasks</artifactId>
@@ -72,7 +72,6 @@
 		<core.version>2.0.0-SNAPSHOT</core.version>
 		<core.units.version>0.5.0-SNAPSHOT</core.units.version>
 		<guava.version>30.0-jre</guava.version>
-        <javadoc.opts>-Xdoclint:none</javadoc.opts>
 		<joda-time.version>2.10.8</joda-time.version>
 		<org.mapstruct.version>1.4.2.Final</org.mapstruct.version>
         <servo-core.version>0.12.21</servo-core.version>
@@ -565,12 +564,7 @@
         </dependency>
         <dependency>
             <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter-api</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter-engine</artifactId>
+            <artifactId>junit-jupiter</artifactId>
             <scope>test</scope>
         </dependency>
         <dependency>
