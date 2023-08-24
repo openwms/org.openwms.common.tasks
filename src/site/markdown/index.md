@@ -1,5 +1,7 @@
-This service is used to manage human user tasks in a warehouse. According to these tasks, in particular on task state
-changes, further actions in other services might be triggered.
+# Intention
+This service is used to manage human user tasks in a warehouse. These general tasks are not specific to the WMS domain and can be used very
+flexible whereas WMS specific tasks (as part of the [WMS Tasks Service](https://github.com/openwms/org.openwms.wms.tasks)) are more specific
+and can cover more detailed WMS information.
 
 # Resources
 
