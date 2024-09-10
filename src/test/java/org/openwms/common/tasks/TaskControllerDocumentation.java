@@ -104,7 +104,7 @@ class TaskControllerDocumentation {
                         responseFields(
                                 fieldWithPath("links[]").description("Hypermedia links to the resource itself and others"),
                                 fieldWithPath("links[].*").ignored(),
-                                fieldWithPath("pKey").description("The persistent unique key"),
+                                fieldWithPath("pKey").description("The persistent technical key of the Task"),
                                 fieldWithPath("ol").ignored(),
                                 fieldWithPath("taskId").description("The unique business key"),
                                 fieldWithPath("description").description("The descriptive text of the task"),
@@ -146,7 +146,7 @@ class TaskControllerDocumentation {
                         responseFields(
                                 fieldWithPath("links[]").description("Hypermedia links to the resource itself and others"),
                                 fieldWithPath("links[].*").ignored(),
-                                fieldWithPath("pKey").description("The persistent unique key"),
+                                fieldWithPath("pKey").description("The persistent technical key of the Task"),
                                 fieldWithPath("ol").ignored(),
                                 fieldWithPath("taskId").description("The unique business key"),
                                 fieldWithPath("description").description("The descriptive text of the task"),
