@@ -34,7 +34,7 @@
             <item name="Home" href="index.html" />
             <item name="REST API Documentation" href="rest/${project.version}/api.html" />
             <item name="Wiki" href="https://wiki.openwms.cloud/projects/common-tasks/wiki" />
-            <item name="Database Schema" href="${project.version}/schemaspy/relationships.html" />
+            <item name="Database Schema" href="schemaspy/relationships.html" />
         </menu>
 
         <menu name="Project" ref="reports" />
