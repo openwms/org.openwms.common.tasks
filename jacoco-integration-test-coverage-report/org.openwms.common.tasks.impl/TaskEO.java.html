@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>TaskEO.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">OpenWMS.org COMMON: Tasks Service</a> &gt; <a href="index.source.html" class="el_package">org.openwms.common.tasks.impl</a> &gt; <span class="el_source">TaskEO.java</span></div><h1>TaskEO.java</h1><pre class="source lang-java linenums">/*
+ * Copyright 2005-2025 the original author or authors.
+ *
+ * Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package org.openwms.common.tasks.impl;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.ForeignKey;
+import jakarta.persistence.Inheritance;
+import jakarta.persistence.InheritanceType;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
+import jakarta.persistence.UniqueConstraint;
+import jakarta.validation.constraints.NotNull;
+import org.ameba.integration.jpa.ApplicationEntity;
+import org.openwms.common.tasks.api.TaskState;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import java.io.Serializable;
+import java.time.ZonedDateTime;
+import java.util.Objects;
+import java.util.StringJoiner;
+
+import static org.openwms.common.tasks.TimeProvider.DATE_TIME_WITH_TIMEZONE;
+
+/**
+ * A TaskEO.
+ *
+ * @author Heiko Scherrer
+ */
+@Entity
+@Inheritance(strategy = InheritanceType.JOINED)
+@Table(name = &quot;TSK_TASK&quot;, uniqueConstraints = @UniqueConstraint(name = &quot;UC_TASK_ID&quot;, columnNames = &quot;C_TASK_ID&quot;))
+<span class="fc" id="L49">public class TaskEO extends ApplicationEntity implements Serializable {</span>
+
+    @NotNull
+    @Column(name = &quot;C_TASK_ID&quot;, nullable = false)
+    private String taskId;
+
+    @Column(name = &quot;C_DESCRIPTION&quot;)
+    private String description;
+
+    @NotNull
+    @Column(name = &quot;C_TYPE&quot;)
+    private String type;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = &quot;C_STATE&quot;)
+    private TaskState state;
+
+    @ManyToOne
+    @JoinColumn(name = &quot;C_PARENT_TASK&quot;, foreignKey = @ForeignKey(name = &quot;FK_TSK_TSK_PARENT&quot;))
+    private TaskEO parentTask;
+
+    @ManyToOne
+    @JoinColumn(name = &quot;C_TASK_GROUP&quot;, foreignKey = @ForeignKey(name = &quot;FK_TSK_GRP&quot;))
+    private TaskGroupEO taskGroup;
+
+    @Column(name = &quot;C_ASSIGNED_TO&quot;)
+    private String assignedTo;
+
+    @Column(name = &quot;C_ASSIGNED_AT&quot;, columnDefinition = &quot;timestamp(0)&quot;)
+    @DateTimeFormat(pattern = DATE_TIME_WITH_TIMEZONE)
+    private ZonedDateTime assignedAt;
+
+    @Column(name = &quot;C_STARTED_AT&quot;, columnDefinition = &quot;timestamp(0)&quot;)
+    @DateTimeFormat(pattern = DATE_TIME_WITH_TIMEZONE)
+    private ZonedDateTime startedAt;
+
+    @Column(name = &quot;C_FINISHED_AT&quot;, columnDefinition = &quot;timestamp(0)&quot;)
+    @DateTimeFormat(pattern = DATE_TIME_WITH_TIMEZONE)
+    private ZonedDateTime finishedAt;
+
+    @Override
+    protected void onEntityPersist() {
+<span class="fc" id="L91">        this.state = TaskState.CREATED;</span>
+<span class="fc" id="L92">    }</span>
+
+    public String getTaskId() {
+<span class="fc" id="L95">        return taskId;</span>
+    }
+
+    public void setTaskId(String taskId) {
+<span class="fc" id="L99">        this.taskId = taskId;</span>
+<span class="fc" id="L100">    }</span>
+
+    public String getDescription() {
+<span class="fc" id="L103">        return description;</span>
+    }
+
+    public void setDescription(String description) {
+<span class="fc" id="L107">        this.description = description;</span>
+<span class="fc" id="L108">    }</span>
+
+    public String getType() {
+<span class="fc" id="L111">        return type;</span>
+    }
+
+    public void setType(String type) {
+<span class="fc" id="L115">        this.type = type;</span>
+<span class="fc" id="L116">    }</span>
+
+    public TaskState getState() {
+<span class="fc" id="L119">        return state;</span>
+    }
+
+    public void setState(TaskState state) {
+<span class="fc" id="L123">        this.state = state;</span>
+<span class="fc" id="L124">    }</span>
+
+    public TaskEO getParentTask() {
+<span class="nc" id="L127">        return parentTask;</span>
+    }
+
+    public void setParentTask(TaskEO parentTask) {
+<span class="nc" id="L131">        this.parentTask = parentTask;</span>
+<span class="nc" id="L132">    }</span>
+
+    public TaskGroupEO getTaskGroup() {
+<span class="nc" id="L135">        return taskGroup;</span>
+    }
+
+    public void setTaskGroup(TaskGroupEO taskGroup) {
+<span class="nc" id="L139">        this.taskGroup = taskGroup;</span>
+<span class="nc" id="L140">    }</span>
+
+    public String getAssignedTo() {
+<span class="nc" id="L143">        return assignedTo;</span>
+    }
+
+    public void setAssignedTo(String assignedTo) {
+<span class="nc" id="L147">        this.assignedTo = assignedTo;</span>
+<span class="nc" id="L148">    }</span>
+
+    public ZonedDateTime getAssignedAt() {
+<span class="nc" id="L151">        return assignedAt;</span>
+    }
+
+    public void setAssignedAt(ZonedDateTime assignedAt) {
+<span class="nc" id="L155">        this.assignedAt = assignedAt;</span>
+<span class="nc" id="L156">    }</span>
+
+    public ZonedDateTime getStartedAt() {
+<span class="fc" id="L159">        return startedAt;</span>
+    }
+
+    public void setStartedAt(ZonedDateTime startedAt) {
+<span class="fc" id="L163">        this.startedAt = startedAt;</span>
+<span class="fc" id="L164">    }</span>
+
+    public ZonedDateTime getFinishedAt() {
+<span class="fc" id="L167">        return finishedAt;</span>
+    }
+
+    public void setFinishedAt(ZonedDateTime finishedAt) {
+<span class="fc" id="L171">        this.finishedAt = finishedAt;</span>
+<span class="fc" id="L172">    }</span>
+
+    /**
+     * {@inheritDoc}
+     *
+     * All fields.
+     */
+    @Override
+    public boolean equals(Object o) {
+<span class="nc bnc" id="L181" title="All 2 branches missed.">        if (this == o) return true;</span>
+<span class="nc bnc" id="L182" title="All 2 branches missed.">        if (!(o instanceof TaskEO)) return false;</span>
+<span class="nc bnc" id="L183" title="All 2 branches missed.">        if (!super.equals(o)) return false;</span>
+<span class="nc" id="L184">        TaskEO taskEO = (TaskEO) o;</span>
+<span class="nc bnc" id="L185" title="All 16 branches missed.">        return Objects.equals(taskId, taskEO.taskId) &amp;&amp; Objects.equals(description, taskEO.description) &amp;&amp; Objects.equals(type, taskEO.type) &amp;&amp; state == taskEO.state &amp;&amp; Objects.equals(parentTask, taskEO.parentTask) &amp;&amp; Objects.equals(taskGroup, taskEO.taskGroup) &amp;&amp; Objects.equals(startedAt, taskEO.startedAt) &amp;&amp; Objects.equals(finishedAt, taskEO.finishedAt);</span>
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * All fields.
+     */
+    @Override
+    public int hashCode() {
+<span class="nc" id="L195">        return Objects.hash(super.hashCode(), taskId, description, type, state, parentTask, taskGroup, startedAt, finishedAt);</span>
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * All fields.
+     */
+    @Override
+    public String toString() {
+<span class="fc" id="L205">        return new StringJoiner(&quot;, &quot;, TaskEO.class.getSimpleName() + &quot;[&quot;, &quot;]&quot;)</span>
+<span class="fc" id="L206">                .add(&quot;taskId='&quot; + taskId + &quot;'&quot;)</span>
+<span class="fc" id="L207">                .add(&quot;description='&quot; + description + &quot;'&quot;)</span>
+<span class="fc" id="L208">                .add(&quot;type='&quot; + type + &quot;'&quot;)</span>
+<span class="fc" id="L209">                .add(&quot;state=&quot; + state)</span>
+<span class="fc" id="L210">                .add(&quot;parentTask=&quot; + parentTask)</span>
+<span class="fc" id="L211">                .add(&quot;taskGroup=&quot; + taskGroup)</span>
+<span class="fc" id="L212">                .add(&quot;startedAt=&quot; + startedAt)</span>
+<span class="fc" id="L213">                .add(&quot;finishedAt=&quot; + finishedAt)</span>
+<span class="fc" id="L214">                .toString();</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>TaskServiceImpl.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">OpenWMS.org COMMON: Tasks Service</a> &gt; <a href="index.source.html" class="el_package">org.openwms.common.tasks.impl</a> &gt; <span class="el_source">TaskServiceImpl.java</span></div><h1>TaskServiceImpl.java</h1><pre class="source lang-java linenums">/*
+ * Copyright 2005-2025 the original author or authors.
+ *
+ * Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package org.openwms.common.tasks.impl;
+
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import org.ameba.annotation.Measured;
+import org.ameba.annotation.TxService;
+import org.ameba.exception.BusinessRuntimeException;
+import org.ameba.exception.NotFoundException;
+import org.ameba.exception.ResourceExistsException;
+import org.ameba.i18n.Translator;
+import org.openwms.common.tasks.TimeProvider;
+import org.openwms.common.tasks.api.TaskState;
+import org.openwms.common.tasks.api.TaskVO;
+import org.openwms.common.tasks.api.ValidationGroups;
+import org.openwms.common.tasks.events.TaskEvent;
+import org.springframework.context.ApplicationEventPublisher;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
+import org.springframework.validation.annotation.Validated;
+
+import java.util.Collections;
+import java.util.List;
+import java.util.ServiceLoader;
+
+import static java.lang.String.format;
+import static org.openwms.common.tasks.TaskMessageCodes.TASK_ALREADY_FINISHED;
+import static org.openwms.common.tasks.TaskMessageCodes.TASK_ALREADY_PAUSED;
+import static org.openwms.common.tasks.TaskMessageCodes.TASK_ALREADY_STARTED;
+import static org.openwms.common.tasks.TaskMessageCodes.TASK_EXISTS;
+import static org.openwms.common.tasks.TaskMessageCodes.TASK_IS_NOT_PAUSED;
+import static org.openwms.common.tasks.TaskMessageCodes.TASK_IS_PAUSED;
+import static org.openwms.common.tasks.TaskMessageCodes.TASK_NOT_ACTIVE;
+import static org.openwms.common.tasks.TaskMessageCodes.TASK_NOT_FOUND;
+
+/**
+ * A TaskServiceImpl.
+ *
+ * @author Heiko Scherrer
+ */
+@Validated
+@TxService
+class TaskServiceImpl implements TaskService {
+
+<span class="fc" id="L60">    private final TimeProvider timeProvider = ServiceLoader.load(TimeProvider.class).iterator().next();</span>
+    private final ApplicationEventPublisher eventPublisher;
+    private final Translator translator;
+    private final TaskMapper mapper;
+    private final TaskRepository taskRepository;
+
+<span class="fc" id="L66">    TaskServiceImpl(ApplicationEventPublisher eventPublisher, Translator translator, TaskMapper mapper, TaskRepository taskRepository) {</span>
+<span class="fc" id="L67">        this.eventPublisher = eventPublisher;</span>
+<span class="fc" id="L68">        this.translator = translator;</span>
+<span class="fc" id="L69">        this.mapper = mapper;</span>
+<span class="fc" id="L70">        this.taskRepository = taskRepository;</span>
+<span class="fc" id="L71">    }</span>
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    @Measured
+    public List&lt;TaskVO&gt; findAll() {
+<span class="nc" id="L79">        var result = taskRepository.findAll(Sort.by(Sort.Direction.ASC, &quot;taskId&quot;));</span>
+<span class="nc bnc" id="L80" title="All 2 branches missed.">        if (result.isEmpty()) {</span>
+<span class="nc" id="L81">            return Collections.emptyList();</span>
+        }
+<span class="nc" id="L83">        return mapper.convertToVO(result);</span>
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    @Measured
+    public TaskVO findByPKeyOrThrow(@NotBlank String pKey) {
+<span class="nc" id="L92">        return mapper.convertToVO(findInternal(pKey));</span>
+    }
+
+    private TaskEO findInternal(String pKey) {
+<span class="nc" id="L96">        var taskOpt = taskRepository.findBypKey(pKey);</span>
+<span class="nc bnc" id="L97" title="All 2 branches missed.">        if (taskOpt.isEmpty()) {</span>
+<span class="nc" id="L98">            throw new NotFoundException(translator, TASK_NOT_FOUND , new String[]{pKey}, pKey);</span>
+        }
+<span class="nc" id="L100">        return taskOpt.get();</span>
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    @Measured
+    @Validated(ValidationGroups.Create.class)
+    public TaskVO create(@NotNull @Valid TaskVO task) {
+<span class="nc bnc" id="L110" title="All 4 branches missed.">        if (task.getpKey() != null &amp;&amp; !task.getpKey().isEmpty()) {</span>
+<span class="nc" id="L111">            throw new ResourceExistsException(translator, TASK_EXISTS);</span>
+        }
+<span class="nc" id="L113">        var eo = mapper.convertToEO(task);</span>
+<span class="nc" id="L114">        var pk = taskRepository.findLastPK(PageRequest.of(0, 1));</span>
+<span class="nc bnc" id="L115" title="All 4 branches missed.">        eo.setTaskId(format(&quot;T%1$10s&quot;, ((pk == null || pk.isEmpty() ? 0 : pk.get(0)) + 1)).replace(' ', '0'));</span>
+<span class="nc" id="L116">        var created = taskRepository.save(eo);</span>
+<span class="nc" id="L117">        eventPublisher.publishEvent(new TaskEvent(created, TaskEvent.Type.CREATED));</span>
+<span class="nc" id="L118">        return mapper.convertToVO(created);</span>
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    @Measured
+    public TaskVO update(@NotNull TaskVO task) {
+<span class="nc" id="L127">        var existing = findInternal(task.getpKey());</span>
+<span class="nc" id="L128">        existing.setDescription(task.getDescription());</span>
+<span class="nc" id="L129">        return mapper.convertToVO(existing);</span>
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    @Measured
+    public TaskVO start(@NotBlank String pKey) {
+<span class="nc" id="L138">        var existing = findInternal(pKey);</span>
+<span class="nc bnc" id="L139" title="All 2 branches missed.">        if (existing.getState() == TaskState.FINISHED) {</span>
+<span class="nc" id="L140">            throw new BusinessRuntimeException(translator, TASK_ALREADY_FINISHED, new String[]{pKey}, pKey);</span>
+        }
+<span class="nc bnc" id="L142" title="All 2 branches missed.">        if (existing.getState() == TaskState.ACTIVE) {</span>
+<span class="nc" id="L143">            throw new BusinessRuntimeException(translator, TASK_ALREADY_STARTED, new String[]{pKey}, pKey);</span>
+        }
+<span class="nc bnc" id="L145" title="All 2 branches missed.">        if (existing.getState() == TaskState.PAUSED) {</span>
+<span class="nc" id="L146">            throw new BusinessRuntimeException(translator, TASK_IS_PAUSED, new String[]{pKey}, pKey);</span>
+        }
+<span class="nc" id="L148">        existing.setState(TaskState.ACTIVE);</span>
+<span class="nc" id="L149">        existing.setStartedAt(timeProvider.nowAsZonedDateTime());</span>
+<span class="nc" id="L150">        existing = taskRepository.save(existing);</span>
+<span class="nc" id="L151">        eventPublisher.publishEvent(new TaskEvent(existing, TaskEvent.Type.STARTED));</span>
+<span class="nc" id="L152">        return mapper.convertToVO(existing);</span>
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    @Measured
+    public TaskVO pause(@NotBlank String pKey) {
+<span class="nc" id="L161">        var existing = findInternal(pKey);</span>
+<span class="nc bnc" id="L162" title="All 2 branches missed.">        if (existing.getState() == TaskState.FINISHED) {</span>
+<span class="nc" id="L163">            throw new BusinessRuntimeException(translator, TASK_ALREADY_FINISHED, new String[]{pKey}, pKey);</span>
+        }
+<span class="nc bnc" id="L165" title="All 2 branches missed.">        if (existing.getState() == TaskState.CREATED) {</span>
+<span class="nc" id="L166">            throw new BusinessRuntimeException(translator, TASK_NOT_ACTIVE, new String[]{pKey}, pKey);</span>
+        }
+<span class="nc bnc" id="L168" title="All 2 branches missed.">        if (existing.getState() != TaskState.ACTIVE) {</span>
+<span class="nc" id="L169">            throw new BusinessRuntimeException(translator, TASK_ALREADY_PAUSED, new String[]{pKey}, pKey);</span>
+        }
+<span class="nc" id="L171">        existing.setState(TaskState.PAUSED);</span>
+<span class="nc" id="L172">        existing = taskRepository.save(existing);</span>
+<span class="nc" id="L173">        eventPublisher.publishEvent(new TaskEvent(existing, TaskEvent.Type.PAUSED));</span>
+<span class="nc" id="L174">        return mapper.convertToVO(existing);</span>
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    @Measured
+    public TaskVO resume(@NotBlank String pKey) {
+<span class="nc" id="L183">        var existing = findInternal(pKey);</span>
+<span class="nc bnc" id="L184" title="All 2 branches missed.">        if (existing.getState() == TaskState.FINISHED) {</span>
+<span class="nc" id="L185">            throw new BusinessRuntimeException(translator, TASK_ALREADY_FINISHED, new String[]{pKey}, pKey);</span>
+        }
+<span class="nc bnc" id="L187" title="All 2 branches missed.">        if (existing.getState() == TaskState.CREATED) {</span>
+<span class="nc" id="L188">            throw new BusinessRuntimeException(translator, TASK_NOT_ACTIVE, new String[]{pKey}, pKey);</span>
+        }
+<span class="nc bnc" id="L190" title="All 2 branches missed.">        if (existing.getState() != TaskState.PAUSED) {</span>
+<span class="nc" id="L191">            throw new BusinessRuntimeException(translator, TASK_IS_NOT_PAUSED, new String[]{pKey}, pKey);</span>
+        }
+<span class="nc" id="L193">        existing.setState(TaskState.ACTIVE);</span>
+<span class="nc" id="L194">        existing = taskRepository.save(existing);</span>
+<span class="nc" id="L195">        eventPublisher.publishEvent(new TaskEvent(existing, TaskEvent.Type.RESUMED));</span>
+<span class="nc" id="L196">        return mapper.convertToVO(existing);</span>
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    @Measured
+    public TaskVO finish(@NotBlank String pKey) {
+<span class="nc" id="L205">        var existing = findInternal(pKey);</span>
+<span class="nc bnc" id="L206" title="All 2 branches missed.">        if (existing.getState() != TaskState.FINISHED) {</span>
+<span class="nc" id="L207">            existing.setState(TaskState.FINISHED);</span>
+<span class="nc" id="L208">            existing.setFinishedAt(timeProvider.nowAsZonedDateTime());</span>
+<span class="nc" id="L209">            existing = taskRepository.save(existing);</span>
+<span class="nc" id="L210">            eventPublisher.publishEvent(new TaskEvent(existing, TaskEvent.Type.FINISHED));</span>
+        }
+<span class="nc" id="L212">        return mapper.convertToVO(existing);</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

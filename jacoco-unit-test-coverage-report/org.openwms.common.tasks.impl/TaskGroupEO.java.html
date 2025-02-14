@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>TaskGroupEO.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">OpenWMS.org COMMON: Tasks Service</a> &gt; <a href="index.source.html" class="el_package">org.openwms.common.tasks.impl</a> &gt; <span class="el_source">TaskGroupEO.java</span></div><h1>TaskGroupEO.java</h1><pre class="source lang-java linenums">/*
+ * Copyright 2005-2025 the original author or authors.
+ *
+ * Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package org.openwms.common.tasks.impl;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotNull;
+import org.ameba.integration.jpa.ApplicationEntity;
+
+import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Objects;
+import java.util.Set;
+
+/**
+ * A TaskGroupEO.
+ *
+ * @author Heiko Scherrer
+ */
+@Entity
+@Table(name = &quot;TSK_TASK_GROUP&quot;)
+<span class="fc" id="L37">public class TaskGroupEO extends ApplicationEntity implements Serializable {</span>
+
+    @NotNull
+    @Column(name = &quot;C_NAME&quot;, nullable = false)
+    private String name;
+
+    @Column(name = &quot;C_DESCRIPTION&quot;)
+    private String description;
+
+<span class="fc" id="L46">    @OneToMany(mappedBy = &quot;taskGroup&quot;)</span>
+    private Set&lt;TaskEO&gt; tasks = new HashSet&lt;&gt;();
+
+    /**
+     * {@inheritDoc}
+     *
+     * Only name and description.
+     */
+    @Override
+    public boolean equals(Object o) {
+<span class="nc bnc" id="L56" title="All 4 branches missed.">        if (o == null || getClass() != o.getClass()) return false;</span>
+<span class="nc bnc" id="L57" title="All 2 branches missed.">        if (!super.equals(o)) return false;</span>
+<span class="nc" id="L58">        var that = (TaskGroupEO) o;</span>
+<span class="nc bnc" id="L59" title="All 4 branches missed.">        return Objects.equals(name, that.name) &amp;&amp; Objects.equals(description, that.description);</span>
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * Only name and description.
+     */
+    @Override
+    public int hashCode() {
+<span class="nc" id="L69">        return Objects.hash(super.hashCode(), name, description);</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

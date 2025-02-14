@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="generator" content="Asciidoctor 2.0.17">
+<meta name="generator" content="Asciidoctor 2.0.23">
 <title>Task</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
@@ -84,10 +84,10 @@ code{font-family:"Droid Sans Mono","DejaVu Sans Mono",monospace;font-weight:400;
 ul,ol,dl{line-height:1.6;margin-bottom:1.25em;list-style-position:outside;font-family:inherit}
 ul,ol{margin-left:1.5em}
 ul li ul,ul li ol{margin-left:1.25em;margin-bottom:0}
-ul.square li ul,ul.circle li ul,ul.disc li ul{list-style:inherit}
-ul.square{list-style-type:square}
 ul.circle{list-style-type:circle}
 ul.disc{list-style-type:disc}
+ul.square{list-style-type:square}
+ul.circle ul:not([class]),ul.disc ul:not([class]),ul.square ul:not([class]){list-style:inherit}
 ol li ul,ol li ol{margin-left:1.25em;margin-bottom:0}
 dl dt{margin-bottom:.3125em;font-weight:bold}
 dl dd{margin-bottom:1.25em}
@@ -140,7 +140,7 @@ p a>code:hover{color:rgba(0,0,0,.9)}
 #content::before{content:none}
 #header>h1:first-child{color:rgba(0,0,0,.85);margin-top:2.25rem;margin-bottom:0}
 #header>h1:first-child+#toc{margin-top:8px;border-top:1px solid #dddddf}
-#header>h1:only-child,body.toc2 #header>h1:nth-last-child(2){border-bottom:1px solid #dddddf;padding-bottom:8px}
+#header>h1:only-child{border-bottom:1px solid #dddddf;padding-bottom:8px}
 #header .details{border-bottom:1px solid #dddddf;line-height:1.45;padding-top:.25em;padding-bottom:.25em;padding-left:.25em;color:rgba(0,0,0,.6);display:flex;flex-flow:row wrap}
 #header .details span:first-child{margin-left:-.125em}
 #header .details span.email a{color:rgba(0,0,0,.85)}
@@ -162,6 +162,7 @@ p a>code:hover{color:rgba(0,0,0,.9)}
 #toctitle{color:#7a2518;font-size:1.2em}
 @media screen and (min-width:768px){#toctitle{font-size:1.375em}
 body.toc2{padding-left:15em;padding-right:0}
+body.toc2 #header>h1:nth-last-child(2){border-bottom:1px solid #dddddf;padding-bottom:8px}
 #toc.toc2{margin-top:0!important;background:#f8f8f7;position:fixed;width:15em;left:0;top:0;border-right:1px solid #e7e7e9;border-top-width:0!important;border-bottom-width:0!important;z-index:1000;padding:1.25em 1em;height:100%;overflow:auto}
 #toc.toc2 #toctitle{margin-top:0;margin-bottom:.8rem;font-size:1.2em}
 #toc.toc2>ul{font-size:.9em;margin-bottom:0}
@@ -208,13 +209,10 @@ table.tableblock.fit-content>caption.title{white-space:nowrap;width:0}
 .admonitionblock>table td.content{padding-left:1.125em;padding-right:1.25em;border-left:1px solid #dddddf;color:rgba(0,0,0,.6);word-wrap:anywhere}
 .admonitionblock>table td.content>:last-child>:last-child{margin-bottom:0}
 .exampleblock>.content{border:1px solid #e6e6e6;margin-bottom:1.25em;padding:1.25em;background:#fff;border-radius:4px}
-.exampleblock>.content>:first-child{margin-top:0}
-.exampleblock>.content>:last-child{margin-bottom:0}
 .sidebarblock{border:1px solid #dbdbd6;margin-bottom:1.25em;padding:1.25em;background:#f3f3f2;border-radius:4px}
-.sidebarblock>:first-child{margin-top:0}
-.sidebarblock>:last-child{margin-bottom:0}
 .sidebarblock>.content>.title{color:#7a2518;margin-top:0;text-align:center}
-.exampleblock>.content>:last-child>:last-child,.exampleblock>.content .olist>ol>li:last-child>:last-child,.exampleblock>.content .ulist>ul>li:last-child>:last-child,.exampleblock>.content .qlist>ol>li:last-child>:last-child,.sidebarblock>.content>:last-child>:last-child,.sidebarblock>.content .olist>ol>li:last-child>:last-child,.sidebarblock>.content .ulist>ul>li:last-child>:last-child,.sidebarblock>.content .qlist>ol>li:last-child>:last-child{margin-bottom:0}
+.exampleblock>.content>:first-child,.sidebarblock>.content>:first-child{margin-top:0}
+.exampleblock>.content>:last-child,.exampleblock>.content>:last-child>:last-child,.exampleblock>.content .olist>ol>li:last-child>:last-child,.exampleblock>.content .ulist>ul>li:last-child>:last-child,.exampleblock>.content .qlist>ol>li:last-child>:last-child,.sidebarblock>.content>:last-child,.sidebarblock>.content>:last-child>:last-child,.sidebarblock>.content .olist>ol>li:last-child>:last-child,.sidebarblock>.content .ulist>ul>li:last-child>:last-child,.sidebarblock>.content .qlist>ol>li:last-child>:last-child{margin-bottom:0}
 .literalblock pre,.listingblock>.content>pre{border-radius:4px;overflow-x:auto;padding:1em;font-size:.8125em}
 @media screen and (min-width:768px){.literalblock pre,.listingblock>.content>pre{font-size:.90625em}}
 @media screen and (min-width:1280px){.literalblock pre,.listingblock>.content>pre{font-size:1em}}
@@ -330,7 +328,7 @@ a.image{text-decoration:none;display:inline-block}
 a.image object{pointer-events:none}
 sup.footnote,sup.footnoteref{font-size:.875em;position:static;vertical-align:super}
 sup.footnote a,sup.footnoteref a{text-decoration:none}
-sup.footnote a:active,sup.footnoteref a:active{text-decoration:underline}
+sup.footnote a:active,sup.footnoteref a:active,#footnotes .footnote a:first-of-type:active{text-decoration:underline}
 #footnotes{padding-top:.75em;padding-bottom:.75em;margin-bottom:.625em}
 #footnotes hr{width:20%;min-width:6.25em;margin:-.25em 0 .75em;border-width:1px 0 0}
 #footnotes .footnote{padding:0 .375em 0 .225em;line-height:1.3334;font-size:.875em;margin-left:1.2em;margin-bottom:.2em}
@@ -393,7 +391,7 @@ b.conum *{color:inherit!important}
 dt,th.tableblock,td.content,div.footnote{text-rendering:optimizeLegibility}
 h1,h2,p,td.content,span.alt,summary{letter-spacing:-.01em}
 p strong,td.content strong,div.footnote strong{letter-spacing:-.005em}
-p,blockquote,dt,td.content,span.alt,summary{font-size:1.0625rem}
+p,blockquote,dt,td.content,td.hdlist1,span.alt,summary{font-size:1.0625rem}
 p{margin-bottom:1.25rem}
 .sidebarblock p,.sidebarblock dt,.sidebarblock td.content,p.tableblock{font-size:1em}
 .exampleblock>.content{background:#fffef7;border-color:#e0e0dc;box-shadow:0 1px 4px #e0e0dc}
@@ -465,21 +463,23 @@ Host: localhost:8080</code></pre>
 <div class="content">
 <pre class="highlight nowrap"><code class="language-http" data-lang="http">HTTP/1.1 200 OK
 Content-Type: application/vnd.openwms.common.task-v1+json
-Content-Length: 308
+Content-Length: 357
 
 {
-  "links" : [ {
-    "rel" : "self",
-    "href" : "http://localhost:8080/tasks/1000"
-  } ],
+  "_links" : {
+    "self" : {
+      "href" : "http://localhost:8080/tasks/1000"
+    }
+  },
   "ol" : 0,
+  "createDt" : "2025-02-14T23:29:55.112653000Z",
   "pKey" : "1000",
   "taskId" : "T0000000001",
   "description" : "Test Task",
   "type" : "MANUAL",
   "state" : "CREATED",
-  "startedAt" : "2024-09-10T22:06:08Z",
-  "finishedAt" : "2024-09-10T22:06:08Z"
+  "startedAt" : "2025-02-14T23:29:55Z",
+  "finishedAt" : "2025-02-14T23:29:55Z"
 }</code></pre>
 </div>
 </div>
@@ -498,9 +498,14 @@ Content-Length: 308
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>links[]</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Array</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Hypermedia links to the resource itself and others</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>_links</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Object</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">An array with hyperlinks to corresponding resources</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>_links.self</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Object</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A link to get the resource by persistent key</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>pKey</code></p></td>
@@ -536,6 +541,11 @@ Content-Length: 308
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>finishedAt</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">When the task has been ended</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>createDt</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Timestamp when the task has been created</p></td>
 </tr>
 </tbody>
 </table>
@@ -576,7 +586,7 @@ Host: localhost:8080</code></pre>
 <div class="content">
 <pre class="highlight nowrap"><code class="language-http" data-lang="http">HTTP/1.1 200 OK
 Content-Type: application/vnd.openwms.common.task-v1+json
-Content-Length: 1084
+Content-Length: 1280
 
 [ {
   "links" : [ {
@@ -584,19 +594,21 @@ Content-Length: 1084
     "href" : "http://localhost:8080/tasks/1000"
   } ],
   "ol" : 0,
+  "createDt" : "2025-02-14T23:29:54.923439000Z",
   "pKey" : "1000",
   "taskId" : "T0000000001",
   "description" : "Test Task",
   "type" : "MANUAL",
   "state" : "CREATED",
-  "startedAt" : "2024-09-10T22:06:08Z",
-  "finishedAt" : "2024-09-10T22:06:08Z"
+  "startedAt" : "2025-02-14T23:29:55Z",
+  "finishedAt" : "2025-02-14T23:29:55Z"
 }, {
   "links" : [ {
     "rel" : "self",
     "href" : "http://localhost:8080/tasks/1001"
   } ],
   "ol" : 0,
+  "createDt" : "2025-02-14T23:29:54.923439000Z",
   "pKey" : "1001",
   "taskId" : "T0000000002",
   "description" : "Simple Task",
@@ -608,24 +620,26 @@ Content-Length: 1084
     "href" : "http://localhost:8080/tasks/1002"
   } ],
   "ol" : 0,
+  "createDt" : "2025-02-14T23:29:54.923439000Z",
   "pKey" : "1002",
   "taskId" : "T0000000003",
   "description" : "Started Task",
   "type" : "MANUAL",
   "state" : "ACTIVE",
-  "startedAt" : "2024-09-10T22:06:08Z"
+  "startedAt" : "2025-02-14T23:29:55Z"
 }, {
   "links" : [ {
     "rel" : "self",
     "href" : "http://localhost:8080/tasks/1003"
   } ],
   "ol" : 0,
+  "createDt" : "2025-02-14T23:29:54.923439000Z",
   "pKey" : "1003",
   "taskId" : "T0000000004",
   "description" : "Paused Task",
   "type" : "MANUAL",
   "state" : "PAUSED",
-  "startedAt" : "2024-09-10T22:06:08Z"
+  "startedAt" : "2025-02-14T23:29:55Z"
 } ]</code></pre>
 </div>
 </div>
@@ -688,17 +702,20 @@ Host: localhost:8080
 <div class="listingblock">
 <div class="content">
 <pre class="highlight nowrap"><code class="language-http" data-lang="http">HTTP/1.1 201 Created
-Location: http://localhost:8080/tasks/e90a1802-a2dc-4004-bcd6-73a048e94b84/
+Location: http://localhost:8080/tasks/a3363c3b-13b6-4cb1-83f4-f6a223856f40
 Content-Type: application/vnd.openwms.common.task-v1+json
-Content-Length: 296
+Content-Length: 400
 
 {
-  "links" : [ {
-    "rel" : "self",
-    "href" : "http://localhost:8080/tasks/e90a1802-a2dc-4004-bcd6-73a048e94b84"
-  } ],
+  "_links" : {
+    "self" : {
+      "href" : "http://localhost:8080/tasks/a3363c3b-13b6-4cb1-83f4-f6a223856f40"
+    }
+  },
   "ol" : 0,
-  "pKey" : "e90a1802-a2dc-4004-bcd6-73a048e94b84",
+  "createDt" : "2025-02-14T23:29:55.485554082Z",
+  "lastModifiedDt" : "2025-02-14T23:29:55.485554082Z",
+  "pKey" : "a3363c3b-13b6-4cb1-83f4-f6a223856f40",
   "taskId" : "T0000000001",
   "description" : "Get a coffee",
   "type" : "USERTASK",
@@ -759,21 +776,23 @@ Host: localhost:8080
 <div class="content">
 <pre class="highlight nowrap"><code class="language-http" data-lang="http">HTTP/1.1 200 OK
 Content-Type: application/vnd.openwms.common.task-v1+json
-Content-Length: 309
+Content-Length: 358
 
 {
-  "links" : [ {
-    "rel" : "self",
-    "href" : "http://localhost:8080/tasks/1000"
-  } ],
+  "_links" : {
+    "self" : {
+      "href" : "http://localhost:8080/tasks/1000"
+    }
+  },
   "ol" : 0,
+  "createDt" : "2025-02-14T23:29:55.591194000Z",
   "pKey" : "1000",
   "taskId" : "T0000000001",
   "description" : "Take a nap",
   "type" : "MANUAL",
   "state" : "CREATED",
-  "startedAt" : "2024-09-10T22:06:09Z",
-  "finishedAt" : "2024-09-10T22:06:09Z"
+  "startedAt" : "2025-02-14T23:29:56Z",
+  "finishedAt" : "2025-02-14T23:29:56Z"
 }</code></pre>
 </div>
 </div>
@@ -787,7 +806,8 @@ and adds the action as part of the URI:</p>
 <div class="listingblock">
 <div class="content">
 <pre class="highlight nowrap"><code class="language-http" data-lang="http">POST /tasks/1001/start HTTP/1.1
-Host: localhost:8080</code></pre>
+Host: localhost:8080
+Content-Type: application/x-www-form-urlencoded</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -797,20 +817,22 @@ Host: localhost:8080</code></pre>
 <div class="content">
 <pre class="highlight nowrap"><code class="language-http" data-lang="http">HTTP/1.1 200 OK
 Content-Type: application/vnd.openwms.common.task-v1+json
-Content-Length: 268
+Content-Length: 317
 
 {
-  "links" : [ {
-    "rel" : "self",
-    "href" : "http://localhost:8080/tasks/1001"
-  } ],
+  "_links" : {
+    "self" : {
+      "href" : "http://localhost:8080/tasks/1001"
+    }
+  },
   "ol" : 0,
+  "createDt" : "2025-02-14T23:29:55.359504000Z",
   "pKey" : "1001",
   "taskId" : "T0000000002",
   "description" : "Simple Task",
   "type" : "MANUAL",
   "state" : "ACTIVE",
-  "startedAt" : "2024-09-10T22:06:08Z"
+  "startedAt" : "2025-02-14T23:29:55Z"
 }</code></pre>
 </div>
 </div>
@@ -826,7 +848,8 @@ Content-Length: 268
 <div class="listingblock">
 <div class="content">
 <pre class="highlight nowrap"><code class="language-http" data-lang="http">POST /tasks/1002/pause HTTP/1.1
-Host: localhost:8080</code></pre>
+Host: localhost:8080
+Content-Type: application/x-www-form-urlencoded</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -836,20 +859,22 @@ Host: localhost:8080</code></pre>
 <div class="content">
 <pre class="highlight nowrap"><code class="language-http" data-lang="http">HTTP/1.1 200 OK
 Content-Type: application/vnd.openwms.common.task-v1+json
-Content-Length: 269
+Content-Length: 318
 
 {
-  "links" : [ {
-    "rel" : "self",
-    "href" : "http://localhost:8080/tasks/1002"
-  } ],
+  "_links" : {
+    "self" : {
+      "href" : "http://localhost:8080/tasks/1002"
+    }
+  },
   "ol" : 0,
+  "createDt" : "2025-02-14T23:29:55.253781000Z",
   "pKey" : "1002",
   "taskId" : "T0000000003",
   "description" : "Started Task",
   "type" : "MANUAL",
   "state" : "PAUSED",
-  "startedAt" : "2024-09-10T22:06:08Z"
+  "startedAt" : "2025-02-14T23:29:55Z"
 }</code></pre>
 </div>
 </div>
@@ -862,7 +887,8 @@ Content-Length: 269
 <div class="listingblock">
 <div class="content">
 <pre class="highlight nowrap"><code class="language-http" data-lang="http">POST /tasks/1003/resume HTTP/1.1
-Host: localhost:8080</code></pre>
+Host: localhost:8080
+Content-Type: application/x-www-form-urlencoded</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -872,20 +898,22 @@ Host: localhost:8080</code></pre>
 <div class="content">
 <pre class="highlight nowrap"><code class="language-http" data-lang="http">HTTP/1.1 200 OK
 Content-Type: application/vnd.openwms.common.task-v1+json
-Content-Length: 268
+Content-Length: 317
 
 {
-  "links" : [ {
-    "rel" : "self",
-    "href" : "http://localhost:8080/tasks/1003"
-  } ],
+  "_links" : {
+    "self" : {
+      "href" : "http://localhost:8080/tasks/1003"
+    }
+  },
   "ol" : 0,
+  "createDt" : "2025-02-14T23:29:55.557926000Z",
   "pKey" : "1003",
   "taskId" : "T0000000004",
   "description" : "Paused Task",
   "type" : "MANUAL",
   "state" : "ACTIVE",
-  "startedAt" : "2024-09-10T22:06:09Z"
+  "startedAt" : "2025-02-14T23:29:56Z"
 }</code></pre>
 </div>
 </div>
@@ -898,7 +926,8 @@ Content-Length: 268
 <div class="listingblock">
 <div class="content">
 <pre class="highlight nowrap"><code class="language-http" data-lang="http">POST /tasks/1002/finish HTTP/1.1
-Host: localhost:8080</code></pre>
+Host: localhost:8080
+Content-Type: application/x-www-form-urlencoded</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -908,21 +937,23 @@ Host: localhost:8080</code></pre>
 <div class="content">
 <pre class="highlight nowrap"><code class="language-http" data-lang="http">HTTP/1.1 200 OK
 Content-Type: application/vnd.openwms.common.task-v1+json
-Content-Length: 312
+Content-Length: 361
 
 {
-  "links" : [ {
-    "rel" : "self",
-    "href" : "http://localhost:8080/tasks/1002"
-  } ],
+  "_links" : {
+    "self" : {
+      "href" : "http://localhost:8080/tasks/1002"
+    }
+  },
   "ol" : 0,
+  "createDt" : "2025-02-14T23:29:55.525563000Z",
   "pKey" : "1002",
   "taskId" : "T0000000003",
   "description" : "Started Task",
   "type" : "MANUAL",
   "state" : "FINISHED",
-  "startedAt" : "2024-09-10T22:06:09Z",
-  "finishedAt" : "2024-09-10T22:06:08Z"
+  "startedAt" : "2025-02-14T23:29:56Z",
+  "finishedAt" : "2025-02-14T23:29:55Z"
 }</code></pre>
 </div>
 </div>
@@ -932,7 +963,7 @@ Content-Length: 312
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-09-10 21:59:15 UTC
+Last updated 2025-02-14 23:27:56 UTC
 </div>
 </div>
 </body>

@@ -1,0 +1,20 @@
+GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
+OpenWMS.org COMMON: Tasks Service,org.openwms.common.tasks.app,DefaultTimeProvider,0,3,0,0,0,1,0,1,0,1
+OpenWMS.org COMMON: Tasks Service,org.openwms.common.tasks.app,TaskModuleConfiguration.new AbstractSpringTranslator() {...},0,10,0,0,0,2,0,2,0,2
+OpenWMS.org COMMON: Tasks Service,org.openwms.common.tasks.app,TaskAsyncConfiguration,9,76,0,0,3,19,1,8,1,8
+OpenWMS.org COMMON: Tasks Service,org.openwms.common.tasks.app,TaskModuleConfiguration,7,72,0,0,1,16,1,8,1,8
+OpenWMS.org COMMON: Tasks Service,org.openwms.common.tasks,TasksRunner,5,3,0,0,2,1,1,1,1,1
+OpenWMS.org COMMON: Tasks Service,org.openwms.common.tasks,IndexController,0,22,0,0,0,3,0,2,0,2
+OpenWMS.org COMMON: Tasks Service,org.openwms.common.tasks,TimeProvider,11,8,0,0,2,2,2,2,2,2
+OpenWMS.org COMMON: Tasks Service,org.openwms.common.tasks,TaskController,0,235,0,2,0,40,0,12,0,11
+OpenWMS.org COMMON: Tasks Service,org.openwms.common.tasks.events,TaskEventPropagator,5,108,1,5,1,23,1,7,0,3
+OpenWMS.org COMMON: Tasks Service,org.openwms.common.tasks.events,TaskEvent,5,16,1,1,1,6,1,3,0,3
+OpenWMS.org COMMON: Tasks Service,org.openwms.common.tasks.events,TaskMO,4,48,0,0,2,20,1,14,1,14
+OpenWMS.org COMMON: Tasks Service,org.openwms.common.tasks.events,TaskEvent.Type,0,33,0,0,0,2,0,1,0,1
+OpenWMS.org COMMON: Tasks Service,org.openwms.common.tasks.impl,TaskMapperImpl,8,146,5,7,4,39,5,6,0,5
+OpenWMS.org COMMON: Tasks Service,org.openwms.common.tasks.impl,TaskServiceImpl,189,306,15,17,10,58,14,12,0,10
+OpenWMS.org COMMON: Tasks Service,org.openwms.common.tasks.impl,TaskGroupEO,54,8,10,0,5,2,7,1,2,1
+OpenWMS.org COMMON: Tasks Service,org.openwms.common.tasks.impl,TaskEO,148,96,22,0,18,31,21,15,10,15
+OpenWMS.org COMMON: Tasks Service,org.openwms.common.tasks.api,TaskGroupVO,95,0,12,0,17,0,15,0,9,0
+OpenWMS.org COMMON: Tasks Service,org.openwms.common.tasks.api,TaskState,0,27,0,0,0,5,0,1,0,1
+OpenWMS.org COMMON: Tasks Service,org.openwms.common.tasks.api,TaskVO,109,52,20,0,6,22,12,15,2,15

@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>TaskMapperImpl.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">OpenWMS.org COMMON: Tasks Service</a> &gt; <a href="index.source.html" class="el_package">org.openwms.common.tasks.impl</a> &gt; <span class="el_source">TaskMapperImpl.java</span></div><h1>TaskMapperImpl.java</h1><pre class="source lang-java linenums">package org.openwms.common.tasks.impl;
+
+import java.util.ArrayList;
+import java.util.List;
+import javax.annotation.processing.Generated;
+import org.openwms.common.tasks.api.TaskVO;
+import org.openwms.common.tasks.events.TaskMO;
+import org.springframework.stereotype.Component;
+
+@Generated(
+    value = &quot;org.mapstruct.ap.MappingProcessor&quot;
+)
+@Component
+<span class="fc" id="L14">public class TaskMapperImpl implements TaskMapper {</span>
+
+    @Override
+    public TaskMO convertToMO(TaskEO eo) {
+<span class="nc bnc" id="L18" title="All 2 branches missed.">        if ( eo == null ) {</span>
+<span class="nc" id="L19">            return null;</span>
+        }
+
+<span class="nc" id="L22">        TaskMO taskMO = new TaskMO();</span>
+
+<span class="nc" id="L24">        taskMO.setTaskId( eo.getTaskId() );</span>
+<span class="nc" id="L25">        taskMO.setDescription( eo.getDescription() );</span>
+<span class="nc" id="L26">        taskMO.setType( eo.getType() );</span>
+<span class="nc" id="L27">        taskMO.setState( eo.getState() );</span>
+<span class="nc" id="L28">        taskMO.setStartedAt( eo.getStartedAt() );</span>
+<span class="nc" id="L29">        taskMO.setFinishedAt( eo.getFinishedAt() );</span>
+
+<span class="nc" id="L31">        return taskMO;</span>
+    }
+
+    @Override
+    public TaskEO convertToEO(TaskVO vo) {
+<span class="nc bnc" id="L36" title="All 2 branches missed.">        if ( vo == null ) {</span>
+<span class="nc" id="L37">            return null;</span>
+        }
+
+<span class="nc" id="L40">        TaskEO taskEO = new TaskEO();</span>
+
+<span class="nc" id="L42">        taskEO.setTaskId( vo.getTaskId() );</span>
+<span class="nc" id="L43">        taskEO.setDescription( vo.getDescription() );</span>
+<span class="nc" id="L44">        taskEO.setType( vo.getType() );</span>
+<span class="nc" id="L45">        taskEO.setState( vo.getState() );</span>
+<span class="nc" id="L46">        taskEO.setStartedAt( vo.getStartedAt() );</span>
+<span class="nc" id="L47">        taskEO.setFinishedAt( vo.getFinishedAt() );</span>
+
+<span class="nc" id="L49">        return taskEO;</span>
+    }
+
+    @Override
+    public TaskVO convertToVO(TaskEO eo) {
+<span class="nc bnc" id="L54" title="All 2 branches missed.">        if ( eo == null ) {</span>
+<span class="nc" id="L55">            return null;</span>
+        }
+
+<span class="nc" id="L58">        TaskVO taskVO = new TaskVO();</span>
+
+<span class="nc bnc" id="L60" title="All 2 branches missed.">        if ( eo.hasPersistentKey() ) {</span>
+<span class="nc" id="L61">            taskVO.setpKey( eo.getPersistentKey() );</span>
+        }
+<span class="nc" id="L63">        taskVO.setOl( eo.getOl() );</span>
+<span class="nc" id="L64">        taskVO.setCreateDt( eo.getCreateDt() );</span>
+<span class="nc" id="L65">        taskVO.setLastModifiedDt( eo.getLastModifiedDt() );</span>
+<span class="nc" id="L66">        taskVO.setTaskId( eo.getTaskId() );</span>
+<span class="nc" id="L67">        taskVO.setDescription( eo.getDescription() );</span>
+<span class="nc" id="L68">        taskVO.setType( eo.getType() );</span>
+<span class="nc" id="L69">        taskVO.setState( eo.getState() );</span>
+<span class="nc" id="L70">        taskVO.setStartedAt( eo.getStartedAt() );</span>
+<span class="nc" id="L71">        taskVO.setFinishedAt( eo.getFinishedAt() );</span>
+
+<span class="nc" id="L73">        return taskVO;</span>
+    }
+
+    @Override
+    public List&lt;TaskVO&gt; convertToVO(List&lt;TaskEO&gt; tasks) {
+<span class="nc bnc" id="L78" title="All 2 branches missed.">        if ( tasks == null ) {</span>
+<span class="nc" id="L79">            return null;</span>
+        }
+
+<span class="nc" id="L82">        List&lt;TaskVO&gt; list = new ArrayList&lt;TaskVO&gt;( tasks.size() );</span>
+<span class="nc bnc" id="L83" title="All 2 branches missed.">        for ( TaskEO taskEO : tasks ) {</span>
+<span class="nc" id="L84">            list.add( convertToVO( taskEO ) );</span>
+<span class="nc" id="L85">        }</span>
+
+<span class="nc" id="L87">        return list;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

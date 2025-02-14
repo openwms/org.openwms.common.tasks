@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>TaskVO.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">OpenWMS.org COMMON: Tasks Service</a> &gt; <a href="index.source.html" class="el_package">org.openwms.common.tasks.api</a> &gt; <span class="el_source">TaskVO.java</span></div><h1>TaskVO.java</h1><pre class="source lang-java linenums">/*
+ * Copyright 2005-2025 the original author or authors.
+ *
+ * Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package org.openwms.common.tasks.api;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import jakarta.validation.constraints.NotBlank;
+import org.ameba.http.AbstractBase;
+
+import java.time.ZonedDateTime;
+import java.util.Objects;
+
+import static org.openwms.common.tasks.TimeProvider.DATE_TIME_WITH_TIMEZONE;
+
+/**
+ * A TaskVO.
+ *
+ * @author Heiko Scherrer
+ */
+@JsonInclude(JsonInclude.Include.NON_EMPTY)
+<span class="nc" id="L35">public class TaskVO extends AbstractBase&lt;TaskVO&gt; {</span>
+
+    public static final String MEDIA_TYPE = &quot;application/vnd.openwms.common.task-v1+json&quot;;
+
+    @NotBlank(groups = {ValidationGroups.Update.class})
+    @JsonProperty(&quot;pKey&quot;)
+    private String pKey;
+
+    @JsonProperty(&quot;taskId&quot;)
+    private String taskId;
+
+    @JsonProperty(&quot;description&quot;)
+    private String description;
+
+    @NotBlank(groups = {ValidationGroups.Create.class})
+    @JsonProperty(&quot;type&quot;)
+    private String type;
+
+    @JsonProperty(&quot;state&quot;)
+    private TaskState state;
+
+    @JsonProperty(&quot;startedAt&quot;)
+    @JsonFormat(pattern = DATE_TIME_WITH_TIMEZONE)
+    private ZonedDateTime startedAt;
+
+    @JsonProperty(&quot;finishedAt&quot;)
+    @JsonFormat(pattern = DATE_TIME_WITH_TIMEZONE)
+    private ZonedDateTime finishedAt;
+
+    public String getpKey() {
+<span class="nc" id="L65">        return pKey;</span>
+    }
+
+    public void setpKey(String pKey) {
+<span class="nc" id="L69">        this.pKey = pKey;</span>
+<span class="nc" id="L70">    }</span>
+
+    public String getTaskId() {
+<span class="nc" id="L73">        return taskId;</span>
+    }
+
+    public void setTaskId(String taskId) {
+<span class="nc" id="L77">        this.taskId = taskId;</span>
+<span class="nc" id="L78">    }</span>
+
+    public String getDescription() {
+<span class="nc" id="L81">        return description;</span>
+    }
+
+    public void setDescription(String description) {
+<span class="nc" id="L85">        this.description = description;</span>
+<span class="nc" id="L86">    }</span>
+
+    public String getType() {
+<span class="nc" id="L89">        return type;</span>
+    }
+
+    public void setType(String type) {
+<span class="nc" id="L93">        this.type = type;</span>
+<span class="nc" id="L94">    }</span>
+
+    public TaskState getState() {
+<span class="nc" id="L97">        return state;</span>
+    }
+
+    public void setState(TaskState state) {
+<span class="nc" id="L101">        this.state = state;</span>
+<span class="nc" id="L102">    }</span>
+
+    public ZonedDateTime getStartedAt() {
+<span class="nc" id="L105">        return startedAt;</span>
+    }
+
+    public void setStartedAt(ZonedDateTime startedAt) {
+<span class="nc" id="L109">        this.startedAt = startedAt;</span>
+<span class="nc" id="L110">    }</span>
+
+    public ZonedDateTime getFinishedAt() {
+<span class="nc" id="L113">        return finishedAt;</span>
+    }
+
+    public void setFinishedAt(ZonedDateTime finishedAt) {
+<span class="nc" id="L117">        this.finishedAt = finishedAt;</span>
+<span class="nc" id="L118">    }</span>
+
+    /**
+     * {@inheritDoc}
+     *
+     * All Fields.
+     */
+    @Override
+    public boolean equals(Object o) {
+<span class="nc bnc" id="L127" title="All 2 branches missed.">        if (this == o) return true;</span>
+<span class="nc bnc" id="L128" title="All 2 branches missed.">        if (!(o instanceof TaskVO)) return false;</span>
+<span class="nc bnc" id="L129" title="All 2 branches missed.">        if (!super.equals(o)) return false;</span>
+<span class="nc" id="L130">        TaskVO taskVO = (TaskVO) o;</span>
+<span class="nc bnc" id="L131" title="All 14 branches missed.">        return Objects.equals(pKey, taskVO.pKey) &amp;&amp; Objects.equals(taskId, taskVO.taskId) &amp;&amp; Objects.equals(description, taskVO.description) &amp;&amp; Objects.equals(type, taskVO.type) &amp;&amp; state == taskVO.state &amp;&amp; Objects.equals(startedAt, taskVO.startedAt) &amp;&amp; Objects.equals(finishedAt, taskVO.finishedAt);</span>
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * All Fields.
+     */
+    @Override
+    public int hashCode() {
+<span class="nc" id="L141">        return Objects.hash(super.hashCode(), pKey, taskId, description, type, state, startedAt, finishedAt);</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>
