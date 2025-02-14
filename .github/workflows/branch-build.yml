@@ -3,6 +3,7 @@ on:
   push:
     branches-ignore:
       - master
+      - gh-pages
       - 'release/**'
 
 env:
@@ -35,7 +36,7 @@ jobs:
           restore-keys: ${{ runner.os }}-m2
       - name: Build
         run: >
-          ./mvnw verify
+          ./mvnw clean verify
           -DsurefireArgs=-Dspring.profiles.active=ASYNCHRONOUS,TEST
           -Dspring.rabbitmq.host=localhost
           -Dci.buildNumber=$GITHUB_RUN_NUMBER

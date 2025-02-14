@@ -1,5 +1,5 @@
 /*
- * Copyright 2005-2024 the original author or authors.
+ * Copyright 2005-2025 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -102,8 +102,9 @@ class TaskControllerDocumentation {
                 .andDo(document("tasks-findOne",
                         preprocessResponse(prettyPrint()),
                         responseFields(
-                                fieldWithPath("links[]").description("Hypermedia links to the resource itself and others"),
-                                fieldWithPath("links[].*").ignored(),
+                                fieldWithPath("_links").description("An array with hyperlinks to corresponding resources"),
+                                fieldWithPath("_links.self").description("A link to get the resource by persistent key"),
+                                fieldWithPath("_links.self.*").ignored(),
                                 fieldWithPath("pKey").description("The persistent technical key of the Task"),
                                 fieldWithPath("ol").ignored(),
                                 fieldWithPath("taskId").description("The unique business key"),
@@ -111,7 +112,8 @@ class TaskControllerDocumentation {
                                 fieldWithPath("type").description("The task's type must be supported by the processing engine"),
                                 fieldWithPath("state").description("A lifecycle state the task resides in"),
                                 fieldWithPath("startedAt").optional().description("When the task has been started"),
-                                fieldWithPath("finishedAt").optional().description("When the task has been ended")
+                                fieldWithPath("finishedAt").optional().description("When the task has been ended"),
+                                fieldWithPath("createDt").description("Timestamp when the task has been created")
                         )
                 ))
         ;
@@ -144,17 +146,19 @@ class TaskControllerDocumentation {
                                 fieldWithPath("description").description("(Optional) descriptive text")
                         ),
                         responseFields(
-                                fieldWithPath("links[]").description("Hypermedia links to the resource itself and others"),
-                                fieldWithPath("links[].*").ignored(),
+                                fieldWithPath("_links").description("An array with hyperlinks to corresponding resources"),
+                                fieldWithPath("_links.self").description("A link to get the resource by persistent key"),
+                                fieldWithPath("_links.self.*").ignored(),
                                 fieldWithPath("pKey").description("The persistent technical key of the Task"),
                                 fieldWithPath("ol").ignored(),
                                 fieldWithPath("taskId").description("The unique business key"),
                                 fieldWithPath("description").description("The descriptive text of the task"),
                                 fieldWithPath("type").description("The task's type must be supported by the processing engine"),
-                                fieldWithPath("state").description("A lifecycle state the task resides in")
+                                fieldWithPath("state").description("A lifecycle state the task resides in"),
+                                fieldWithPath("createDt").description("Timestamp when the task has been created"),
+                                fieldWithPath("lastModifiedDt").description("Timestamp when the record has been updated the last time")
                         )
                 ))
-                .andExpect(jsonPath("$.links.length()", is(1)))
                 .andExpect(jsonPath("$.pKey").exists())
                 .andExpect(jsonPath("$.taskId", is("T0000000001")))
                 .andExpect(jsonPath("$.description", is("Get a coffee")))
@@ -186,7 +190,6 @@ class TaskControllerDocumentation {
                                 fieldWithPath("description").description("In this example the description is updated")
                         )
                 ))
-                .andExpect(jsonPath("$.links.length()", is(1)))
                 .andExpect(jsonPath("$.pKey").exists())
                 .andExpect(jsonPath("$.taskId", is("T0000000001")))
                 .andExpect(jsonPath("$.description", is("Take a nap")))
@@ -209,7 +212,6 @@ class TaskControllerDocumentation {
                 .andDo(document("tasks-start",
                         preprocessResponse(prettyPrint())
                 ))
-                .andExpect(jsonPath("$.links.length()", is(1)))
                 .andExpect(jsonPath("$.pKey").exists())
                 .andExpect(jsonPath("$.taskId", is("T0000000002")))
                 .andExpect(jsonPath("$.type", is("MANUAL")))
@@ -233,7 +235,6 @@ class TaskControllerDocumentation {
                 .andDo(document("tasks-pause",
                         preprocessResponse(prettyPrint())
                 ))
-                .andExpect(jsonPath("$.links.length()", is(1)))
                 .andExpect(jsonPath("$.pKey").exists())
                 .andExpect(jsonPath("$.taskId", is("T0000000003")))
                 .andExpect(jsonPath("$.type", is("MANUAL")))
@@ -257,7 +258,6 @@ class TaskControllerDocumentation {
                 .andDo(document("tasks-resume",
                         preprocessResponse(prettyPrint())
                 ))
-                .andExpect(jsonPath("$.links.length()", is(1)))
                 .andExpect(jsonPath("$.pKey").exists())
                 .andExpect(jsonPath("$.taskId", is("T0000000004")))
                 .andExpect(jsonPath("$.type", is("MANUAL")))
@@ -281,7 +281,7 @@ class TaskControllerDocumentation {
                 .andDo(document("tasks-finish",
                         preprocessResponse(prettyPrint())
                 ))
-                .andExpect(jsonPath("$.links.length()", is(1)))
+//                .andExpect(jsonPath("$.links.length()", is(1)))
                 .andExpect(jsonPath("$.pKey").exists())
                 .andExpect(jsonPath("$.taskId", is("T0000000003")))
                 .andExpect(jsonPath("$.type", is("MANUAL")))

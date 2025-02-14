@@ -1,5 +1,5 @@
 /*
- * Copyright 2005-2024 the original author or authors.
+ * Copyright 2005-2025 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,6 +15,7 @@
  */
 package org.openwms.common.tasks;
 
+import jakarta.servlet.http.HttpServletRequest;
 import org.ameba.http.MeasuredRestController;
 import org.openwms.common.tasks.api.TaskVO;
 import org.openwms.common.tasks.impl.TaskService;
@@ -28,7 +29,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 import static org.openwms.common.tasks.api.TaskVO.MEDIA_TYPE;

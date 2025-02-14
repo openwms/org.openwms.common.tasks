@@ -1,5 +1,5 @@
 /*
- * Copyright 2005-2024 the original author or authors.
+ * Copyright 2005-2025 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,11 +15,11 @@
  */
 package org.openwms.common.tasks.impl;
 
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import org.openwms.common.tasks.api.TaskVO;
 
-import javax.validation.Valid;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
 import java.util.List;
 
 /**
@@ -31,18 +31,18 @@ public interface TaskService {
 
     List<TaskVO> findAll();
 
-    TaskVO findByPKeyOrThrow(@NotEmpty String pKey);
+    TaskVO findByPKeyOrThrow(@NotBlank String pKey);
 
     TaskVO create(@NotNull @Valid TaskVO task);
 
     TaskVO update(@NotNull TaskVO task);
 
-    TaskVO start(@NotEmpty String pKey);
+    TaskVO start(@NotBlank String pKey);
 
-    TaskVO pause(@NotEmpty String pKey);
+    TaskVO pause(@NotBlank String pKey);
 
-    TaskVO resume(@NotEmpty String pKey);
+    TaskVO resume(@NotBlank String pKey);
 
-    TaskVO finish(@NotEmpty String pKey);
+    TaskVO finish(@NotBlank String pKey);
 
 }

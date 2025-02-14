@@ -1,5 +1,5 @@
 /*
- * Copyright 2005-2024 the original author or authors.
+ * Copyright 2005-2025 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,15 +15,16 @@
  */
 package org.openwms.common.tasks.impl;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotNull;
 import org.ameba.integration.jpa.ApplicationEntity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 /**
@@ -44,4 +45,27 @@ public class TaskGroupEO extends ApplicationEntity implements Serializable {
 
     @OneToMany(mappedBy = "taskGroup")
     private Set<TaskEO> tasks = new HashSet<>();
+
+    /**
+     * {@inheritDoc}
+     *
+     * Only name and description.
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+        var that = (TaskGroupEO) o;
+        return Objects.equals(name, that.name) && Objects.equals(description, that.description);
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * Only name and description.
+     */
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), name, description);
+    }
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright 2005-2024 the original author or authors.
+ * Copyright 2005-2025 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,6 +15,9 @@
  */
 package org.openwms.common.tasks.impl;
 
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import org.ameba.annotation.Measured;
 import org.ameba.annotation.TxService;
 import org.ameba.exception.BusinessRuntimeException;
@@ -31,9 +34,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.validation.annotation.Validated;
 
-import javax.validation.Valid;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
 import java.util.Collections;
 import java.util.List;
 import java.util.ServiceLoader;
@@ -88,7 +88,7 @@ class TaskServiceImpl implements TaskService {
      */
     @Override
     @Measured
-    public TaskVO findByPKeyOrThrow(@NotEmpty String pKey) {
+    public TaskVO findByPKeyOrThrow(@NotBlank String pKey) {
         return mapper.convertToVO(findInternal(pKey));
     }
 
@@ -134,7 +134,7 @@ class TaskServiceImpl implements TaskService {
      */
     @Override
     @Measured
-    public TaskVO start(@NotEmpty String pKey) {
+    public TaskVO start(@NotBlank String pKey) {
         var existing = findInternal(pKey);
         if (existing.getState() == TaskState.FINISHED) {
             throw new BusinessRuntimeException(translator, TASK_ALREADY_FINISHED, new String[]{pKey}, pKey);
@@ -157,7 +157,7 @@ class TaskServiceImpl implements TaskService {
      */
     @Override
     @Measured
-    public TaskVO pause(@NotEmpty String pKey) {
+    public TaskVO pause(@NotBlank String pKey) {
         var existing = findInternal(pKey);
         if (existing.getState() == TaskState.FINISHED) {
             throw new BusinessRuntimeException(translator, TASK_ALREADY_FINISHED, new String[]{pKey}, pKey);
@@ -179,7 +179,7 @@ class TaskServiceImpl implements TaskService {
      */
     @Override
     @Measured
-    public TaskVO resume(@NotEmpty String pKey) {
+    public TaskVO resume(@NotBlank String pKey) {
         var existing = findInternal(pKey);
         if (existing.getState() == TaskState.FINISHED) {
             throw new BusinessRuntimeException(translator, TASK_ALREADY_FINISHED, new String[]{pKey}, pKey);
@@ -201,7 +201,7 @@ class TaskServiceImpl implements TaskService {
      */
     @Override
     @Measured
-    public TaskVO finish(@NotEmpty String pKey) {
+    public TaskVO finish(@NotBlank String pKey) {
         var existing = findInternal(pKey);
         if (existing.getState() != TaskState.FINISHED) {
             existing.setState(TaskState.FINISHED);

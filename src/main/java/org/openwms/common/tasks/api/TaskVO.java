@@ -1,5 +1,5 @@
 /*
- * Copyright 2005-2024 the original author or authors.
+ * Copyright 2005-2025 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,9 +18,9 @@ package org.openwms.common.tasks.api;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import jakarta.validation.constraints.NotBlank;
 import org.ameba.http.AbstractBase;
 
-import javax.validation.constraints.NotEmpty;
 import java.time.ZonedDateTime;
 import java.util.Objects;
 
@@ -36,7 +36,7 @@ public class TaskVO extends AbstractBase<TaskVO> {
 
     public static final String MEDIA_TYPE = "application/vnd.openwms.common.task-v1+json";
 
-    @NotEmpty(groups = {ValidationGroups.Update.class})
+    @NotBlank(groups = {ValidationGroups.Update.class})
     @JsonProperty("pKey")
     private String pKey;
 
@@ -46,7 +46,7 @@ public class TaskVO extends AbstractBase<TaskVO> {
     @JsonProperty("description")
     private String description;
 
-    @NotEmpty(groups = {ValidationGroups.Create.class})
+    @NotBlank(groups = {ValidationGroups.Create.class})
     @JsonProperty("type")
     private String type;
 

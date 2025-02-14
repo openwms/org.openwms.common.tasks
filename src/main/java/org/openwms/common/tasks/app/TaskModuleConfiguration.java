@@ -1,5 +1,5 @@
 /*
- * Copyright 2005-2024 the original author or authors.
+ * Copyright 2005-2025 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,12 +16,13 @@
 package org.openwms.common.tasks.app;
 
 import io.micrometer.core.instrument.MeterRegistry;
+import jakarta.servlet.Filter;
 import org.ameba.app.SpringProfiles;
-import org.ameba.http.EnableMultiTenancy;
 import org.ameba.http.PermitAllCorsConfigurationSource;
 import org.ameba.http.identity.EnableIdentityAwareness;
 import org.ameba.i18n.AbstractSpringTranslator;
 import org.ameba.i18n.Translator;
+import org.ameba.integration.EnableMultiTenancy;
 import org.ameba.system.NestedReloadableResourceBundleMessageSource;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.actuate.autoconfigure.metrics.MeterRegistryCustomizer;
@@ -39,7 +40,6 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
 import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 
-import javax.servlet.Filter;
 import java.util.Locale;
 import java.util.Properties;
 

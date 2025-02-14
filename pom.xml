@@ -1,37 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>org.openwms</groupId>
         <artifactId>org.openwms.parent</artifactId>
-        <version>25</version>
-        <relativePath />
+        <version>27.2</version>
+        <relativePath/>
     </parent>
     <artifactId>org.openwms.common.tasks</artifactId>
     <version>1.0.0-SNAPSHOT</version>
     <name>OpenWMS.org COMMON: Tasks Service</name>
     <description>A Tasks Service to schedule arbitrary common tasks</description>
     <url>https://openwms.github.io/${project.artifactId}/index.html</url>
-
-    <issueManagement>
-        <system>GitHub</system>
-        <url>https://github.com/openwms/${project.artifactId}/issues</url>
-    </issueManagement>
-
-    <distributionManagement>
-        <site>
-            <id>site</id>
-            <url>scm:git:git@github.com:openwms/${project.artifactId}.git</url>
-        </site>
-    </distributionManagement>
-
-    <scm>
-        <url>https://github.com/openwms/${project.artifactId}</url>
-        <connection>scm:git:https://github.com/openwms/${project.artifactId}.git</connection>
-        <developerConnection>scm:git:https://github.com/openwms/${project.artifactId}.git</developerConnection>
-    </scm>
 
     <developers>
         <developer>
@@ -51,29 +33,15 @@
         </developer>
     </developers>
 
-    <ciManagement>
-        <system>GitHub</system>
-        <url>https://github.com/openwms/${project.artifactId}/actions</url>
-        <notifiers>
-            <notifier>
-                <type>mail</type>
-                <configuration>
-                    <address>product@openwms.org</address>
-                </configuration>
-            </notifier>
-        </notifiers>
-    </ciManagement>
-
     <properties>
-		<ameba-cloud.version>2.0</ameba-cloud.version>
-		<common.version>2.1.0-SNAPSHOT</common.version>
-		<core.units.version>0.5.1-SNAPSHOT</core.units.version>
-		<core.version>2.1.0-SNAPSHOT</core.version>
-		<guava.version>32.0.0-jre</guava.version>
-		<joda-time.version>2.10.14</joda-time.version>
-        <servo-core.version>0.12.21</servo-core.version>
-		<spring-cloud-dependencies.version>2021.0.8</spring-cloud-dependencies.version>
-		<surefireArgs>-Dspring.profiles.active=TEST</surefireArgs>
+        <common.service.lib.version>3.0.0</common.service.lib.version>
+        <core.test.arch.version>1.0.1</core.test.arch.version>
+        <core.units.version>0.7.0</core.units.version>
+        <core.version>3.0.0</core.version>
+        <error_prone_annotations.version>2.28.0</error_prone_annotations.version>
+        <schemaspy-maven-plugin.version>5.3.1</schemaspy-maven-plugin.version>
+        <spring-cloud-dependencies.version>2024.0.0</spring-cloud-dependencies.version>
+        <surefireArgs>-Dspring.profiles.active=TEST</surefireArgs>
     </properties>
 
     <reporting>
@@ -99,10 +67,6 @@
     <build>
         <finalName>openwms-common-tasks</finalName>
         <plugins>
-            <plugin>
-                <groupId>com.mysema.maven</groupId>
-                <artifactId>apt-maven-plugin</artifactId>
-            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -140,6 +104,7 @@
                 <artifactId>maven-failsafe-plugin</artifactId>
             </plugin>
             <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
                 <executions>
                     <execution>
@@ -188,15 +153,15 @@
                 </executions>
                 <configuration>
                     <layers>
-						<configuration>${project.basedir}/src/layers.xml</configuration>
+                        <configuration>${project.basedir}/src/layers.xml</configuration>
                         <enabled>true</enabled>
                     </layers>
-                    <excludes>
-                        <exclude>
-                            <groupId>org.springframework.boot</groupId>
-                            <artifactId>spring-boot-configuration-processor</artifactId>
-                        </exclude>
-                    </excludes>
+					<excludes>
+						<exclude>
+							<groupId>org.springframework.boot</groupId>
+							<artifactId>spring-boot-configuration-processor</artifactId>
+						</exclude>
+					</excludes>
                 </configuration>
             </plugin>
         </plugins>
@@ -205,15 +170,10 @@
     <dependencyManagement>
         <dependencies>
             <dependency>
-                <groupId>com.google.guava</groupId>
-                <artifactId>guava</artifactId>
-                <version>${guava.version}</version>
-            </dependency>
-            <dependency>
                 <!-- Clash in org.springframework.cloud:spring-cloud-starter-netflix-eureka-client -->
-                <groupId>com.netflix.servo</groupId>
-                <artifactId>servo-core</artifactId>
-                <version>${servo-core.version}</version>
+                <groupId>com.google.errorprone</groupId>
+                <artifactId>error_prone_annotations</artifactId>
+                <version>${error_prone_annotations.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.openwms</groupId>
@@ -227,11 +187,16 @@
             </dependency>
             <dependency>
                 <groupId>org.openwms</groupId>
+                <artifactId>org.openwms.core.test.arch</artifactId>
+                <version>${core.test.arch.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.openwms</groupId>
                 <artifactId>org.openwms.common.service.lib</artifactId>
-                <version>${common.version}</version>
+                <version>${common.service.lib.version}</version>
                 <classifier>client</classifier>
             </dependency>
-			<dependency>
+            <dependency>
                 <groupId>org.springframework.cloud</groupId>
                 <artifactId>spring-cloud-dependencies</artifactId>
                 <version>${spring-cloud-dependencies.version}</version>
@@ -258,6 +223,11 @@
             <artifactId>org.openwms.common.service.lib</artifactId>
             <classifier>client</classifier>
             <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>org.openwms</groupId>
+            <artifactId>org.openwms.core.test.arch</artifactId>
+            <scope>test</scope>
         </dependency>
 
         <!-- Spring Dependencies -->
@@ -313,11 +283,11 @@
         </dependency>
         <dependency>
             <groupId>org.springframework.cloud</groupId>
-			<artifactId>spring-cloud-starter-bus-amqp</artifactId>
-			<optional>true</optional>
+            <artifactId>spring-cloud-starter-bus-amqp</artifactId>
+            <optional>true</optional>
         </dependency>
         <dependency>
-			<groupId>org.springframework.cloud</groupId>
+            <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-config</artifactId>
             <optional>true</optional>
         </dependency>
@@ -336,16 +306,6 @@
 					<artifactId>commons-io</artifactId>
 				</exclusion>
 			</exclusions>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-sleuth</artifactId>
-            <optional>true</optional>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-sleuth-zipkin</artifactId>
-            <optional>true</optional>
         </dependency>
 
         <dependency>
@@ -373,9 +333,24 @@
 
         <!-- Observability: Monitoring -->
         <dependency>
+            <groupId>io.github.openfeign</groupId>
+            <artifactId>feign-micrometer</artifactId>
+            <optional>true</optional>
+        </dependency>
+        <dependency>
             <groupId>io.micrometer</groupId>
             <artifactId>micrometer-registry-prometheus</artifactId>
             <scope>runtime</scope>
+            <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>io.micrometer</groupId>
+            <artifactId>micrometer-tracing-bridge-otel</artifactId>
+            <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>io.opentelemetry</groupId>
+            <artifactId>opentelemetry-exporter-otlp</artifactId>
             <optional>true</optional>
         </dependency>
 
@@ -408,31 +383,16 @@
             <optional>true</optional>
         </dependency>
         <dependency>
-			<groupId>com.querydsl</groupId>
-			<artifactId>querydsl-apt</artifactId>
-			<scope>provided</scope>
-			<optional>true</optional>
-		</dependency>
-		<dependency>
-			<groupId>com.querydsl</groupId>
-			<artifactId>querydsl-collections</artifactId>
-			<optional>true</optional>
-		</dependency>
-		<dependency>
-			<groupId>com.querydsl</groupId>
-			<artifactId>querydsl-core</artifactId>
-			<optional>true</optional>
-		</dependency>
-		<dependency>
-			<groupId>com.querydsl</groupId>
-			<artifactId>querydsl-jpa</artifactId>
-			<optional>true</optional>
-		</dependency>
-		<dependency>
             <!-- Required to use PATCH -->
             <groupId>io.github.openfeign</groupId>
             <artifactId>feign-httpclient</artifactId>
             <optional>true</optional>
+            <exclusions>
+                <exclusion>
+                    <groupId>commons-logging</groupId>
+                    <artifactId>commons-logging</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>io.interface21</groupId>
@@ -446,20 +406,21 @@
             <optional>true</optional>
         </dependency>
         <dependency>
-			<groupId>org.jolokia</groupId>
-			<artifactId>jolokia-core</artifactId>
+            <groupId>org.jolokia</groupId>
+            <artifactId>jolokia-core</artifactId>
+            <scope>runtime</scope>
             <optional>true</optional>
         </dependency>
         <dependency>
-			<groupId>org.mapstruct</groupId>
-			<artifactId>mapstruct</artifactId>
+            <groupId>org.mapstruct</groupId>
+            <artifactId>mapstruct</artifactId>
             <optional>true</optional>
         </dependency>
         <dependency>
-			<groupId>org.mapstruct</groupId>
-			<artifactId>mapstruct-processor</artifactId>
+            <groupId>org.mapstruct</groupId>
+            <artifactId>mapstruct-processor</artifactId>
+            <scope>provided</scope>
             <optional>true</optional>
-			<scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.postgresql</groupId>
@@ -494,17 +455,6 @@
 
     <repositories>
         <repository>
-            <id>sonatype-nexus-snapshots</id>
-            <name>Snapshot Repository</name>
-            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
-            <snapshots>
-                <enabled>true</enabled>
-            </snapshots>
-            <releases>
-                <enabled>false</enabled>
-            </releases>
-        </repository>
-        <repository>
             <id>sonatype-nexus-staging</id>
             <name>Staging Repository</name>
             <url>https://oss.sonatype.org/content/groups/staging/</url>
@@ -515,51 +465,5 @@
                 <enabled>true</enabled>
             </releases>
         </repository>
-        <repository>
-            <id>spring-snapshots</id>
-            <name>Spring Snapshots</name>
-            <url>https://repo.spring.io/snapshot</url>
-            <snapshots>
-                <enabled>true</enabled>
-            </snapshots>
-            <releases>
-                <enabled>false</enabled>
-            </releases>
-        </repository>
-        <repository>
-            <id>spring-milestones</id>
-            <name>Spring Milestones</name>
-            <url>https://repo.spring.io/milestone</url>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-            <releases>
-                <enabled>true</enabled>
-            </releases>
-        </repository>
     </repositories>
-    <pluginRepositories>
-        <pluginRepository>
-            <id>spring-milestones</id>
-            <name>Spring Milestones</name>
-            <url>https://repo.spring.io/milestone</url>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-            <releases>
-                <enabled>true</enabled>
-            </releases>
-        </pluginRepository>
-        <pluginRepository>
-            <id>sonatype-nexus-snapshots</id>
-            <name>Snapshot Repository</name>
-            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
-            <snapshots>
-                <enabled>true</enabled>
-            </snapshots>
-            <releases>
-                <enabled>false</enabled>
-            </releases>
-        </pluginRepository>
-    </pluginRepositories>
 </project>
